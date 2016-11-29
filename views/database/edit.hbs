@@ -1,0 +1,26 @@
+<section>
+    <h3>{{user.name}}</h3>
+</section>
+
+<section>
+    <form action="/database/edit/{{user.$loki}}" method="post">
+        <div>
+            <label for="name">name</label>
+            <input type="text" name="name" value="{{user.name}}">
+        </div>
+        <div>
+            <label for="city">city</label>
+            <input type="text" name="city" value="{{user.city}}">
+        </div>
+        <div>
+            <label for="state">state</label>
+            <input type="text" name="state" value="{{user.state}}">
+        </div>
+        <div>
+            <label for="zip">zip</label>
+            <input type="text" name="zip" value="{{user.zip}}">
+        </div>
+        <button type="submit">save</button>
+
+    </form>
+</section>

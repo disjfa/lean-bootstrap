@@ -1,0 +1,15 @@
+<section>
+    <h3>{{project.name}}</h3>
+</section>
+
+<section>
+    <form action="/projects/{{project.$loki}}" method="post">
+        <div>
+            <textarea name="content" id="content" cols="30" rows="10">{{project.content}}</textarea>
+        </div>
+        <button type="submit">save</button>
+    </form>
+<pre>
+    {{bsdata}}
+</pre>
+</section>
