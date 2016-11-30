@@ -1,9 +1,3 @@
-body {
-  background: blue; }
-
-.container {
-  background: yellow; }
-
 /*!
  * Bootstrap v4.0.0-alpha.5 (https://getbootstrap.com)
  * Copyright 2011-2016 The Bootstrap Authors
@@ -270,8 +264,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
-  color: #373a3c;
-  background-color: pink; }
+  color: #CCC;
+  background-color: #fff; }
 
 [tabindex="-1"]:focus {
   outline: none !important; }
@@ -539,7 +533,7 @@ dl.row > dd + dt {
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: pink;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 0.25rem;
   transition: all .2s ease-in-out;
@@ -586,7 +580,7 @@ pre {
   margin-top: 0;
   margin-bottom: 1rem;
   font-size: 90%;
-  color: #373a3c; }
+  color: #CCC; }
   pre code {
     padding: 0;
     font-size: inherit;
@@ -1310,7 +1304,7 @@ pre {
   .table tbody + tbody {
     border-top: 2px solid #eceeef; }
   .table .table {
-    background-color: pink; }
+    background-color: #fff; }
 
 .table-sm th,
 .table-sm td {
@@ -1388,7 +1382,7 @@ pre {
 
 .thead-inverse th {
   color: #fff;
-  background-color: #373a3c; }
+  background-color: #CCC; }
 
 .thead-default th {
   color: #55595c;
@@ -1396,7 +1390,7 @@ pre {
 
 .table-inverse {
   color: #eceeef;
-  background-color: #373a3c; }
+  background-color: #CCC; }
   .table-inverse th,
   .table-inverse td,
   .table-inverse thead th {
@@ -1753,20 +1747,20 @@ fieldset[disabled] a.btn {
     border-color: #0275d8; }
 
 .btn-secondary {
-  color: #373a3c;
+  color: #CCC;
   background-color: #fff;
   border-color: #ccc; }
   .btn-secondary:hover {
-    color: #373a3c;
+    color: #CCC;
     background-color: #e6e6e6;
     border-color: #adadad; }
   .btn-secondary:focus, .btn-secondary.focus {
-    color: #373a3c;
+    color: #CCC;
     background-color: #e6e6e6;
     border-color: #adadad; }
   .btn-secondary:active, .btn-secondary.active,
   .open > .btn-secondary.dropdown-toggle {
-    color: #373a3c;
+    color: #CCC;
     background-color: #e6e6e6;
     border-color: #adadad;
     background-image: none; }
@@ -1774,7 +1768,7 @@ fieldset[disabled] a.btn {
     .open > .btn-secondary.dropdown-toggle:hover,
     .open > .btn-secondary.dropdown-toggle:focus,
     .open > .btn-secondary.dropdown-toggle.focus {
-      color: #373a3c;
+      color: #CCC;
       background-color: #d4d4d4;
       border-color: #8c8c8c; }
   .btn-secondary.disabled:focus, .btn-secondary.disabled.focus, .btn-secondary:disabled:focus, .btn-secondary:disabled.focus {
@@ -2190,7 +2184,7 @@ tbody.collapse.in {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #373a3c;
+  color: #CCC;
   text-align: left;
   list-style: none;
   background-color: #fff;
@@ -2210,13 +2204,13 @@ tbody.collapse.in {
   padding: 3px 1.5rem;
   clear: both;
   font-weight: normal;
-  color: #373a3c;
+  color: #CCC;
   text-align: inherit;
   white-space: nowrap;
   background: none;
   border: 0; }
   .dropdown-item:focus, .dropdown-item:hover {
-    color: #2b2d2f;
+    color: #bfbfbf;
     text-decoration: none;
     background-color: #f5f5f5; }
   .dropdown-item.active, .dropdown-item.active:focus, .dropdown-item.active:hover {
@@ -2724,7 +2718,7 @@ tbody.collapse.in {
   .nav-tabs .nav-item.open .nav-link:focus,
   .nav-tabs .nav-item.open .nav-link:hover {
     color: #55595c;
-    background-color: pink;
+    background-color: #fff;
     border-color: #ddd #ddd transparent; }
   .nav-tabs .dropdown-menu {
     margin-top: -1px;
@@ -4420,10 +4414,10 @@ a.bg-danger:focus, a.bg-danger:hover {
   background-color: #c9302c !important; }
 
 .bg-inverse {
-  background-color: #373a3c !important; }
+  background-color: #CCC !important; }
 
 a.bg-inverse:focus, a.bg-inverse:hover {
-  background-color: #1f2021 !important; }
+  background-color: #b3b3b3 !important; }
 
 .rounded {
   border-radius: 0.25rem; }
@@ -4831,10 +4825,10 @@ a.text-danger:focus, a.text-danger:hover {
   color: #c9302c !important; }
 
 .text-gray-dark {
-  color: #373a3c !important; }
+  color: #CCC !important; }
 
 a.text-gray-dark:focus, a.text-gray-dark:hover {
-  color: #1f2021 !important; }
+  color: #b3b3b3 !important; }
 
 .text-hide {
   font: 0/0 a;

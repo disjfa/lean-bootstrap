@@ -25,7 +25,7 @@ app.set('view engine', '.hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use('/public', express.static('public'));
+app.use('/', express.static('public'));
 
 //loki db reference for the router
 app.use((req, res, next) => {
@@ -36,6 +36,7 @@ app.use((req, res, next) => {
 //loki db reference for the router
 app.use((req, res, next) => {
     req.dataDir = __dirname + '/data';
+    req.publicDir = __dirname + '/public/css/data';
     if (false === fs.existsSync(req.dataDir)) {
         fs.mkdir(req.dataDir);
     }

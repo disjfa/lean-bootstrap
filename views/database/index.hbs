@@ -3,12 +3,13 @@
 </section>
 
 <section>
-    <input id="search" type="text" placeholder="Search here...">
-    <button onclick="search();">SEARCH</button>
-    <button onclick="struct();">VIEW LOKI STRUCTURE</button>
-    <br><br>
+    <div class="form-inline py-1">
+        <input id="search" type="text" placeholder="Search here..." class="form-control">
+        <button onclick="search();" class="btn">SEARCH</button>
+        <button onclick="struct();" class="btn">VIEW LOKI STRUCTURE</button>
+    </div>
 
-    <table class="users" cellpadding="10">
+    <table class="table" cellpadding="10">
         <tr>
             <td align="left">NAME</td>
             <td align="left">CITY</td>
@@ -46,7 +47,7 @@
     }
 
     function struct() {
-        alertify.alert('Hey!', 'This will show the in-memory structure of the Loki Database Collection. Scroll to the bottom to view collection settings.', function() {
+        alertify.alert('Hey!', 'This will show the in-memory structure of the Loki Database Collection. Scroll to the bottom to view collection settings.', function () {
             window.location = '/database/structure';
         });
     }

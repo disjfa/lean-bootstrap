@@ -37,6 +37,7 @@ router.post('/edit/:userid', (req, res) => {
     user.city = req.body.city;
     user.state = req.body.state;
     user.zip = req.body.zip;
+    coll.update(user);
 
     res.redirect('/database/edit/' + userid);
 });

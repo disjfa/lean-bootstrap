@@ -1,7 +1,10 @@
-let router = require('express').Router();
-let sass   = require('node-sass');
-let fs     = require('fs');
-let path   = require('path');
+let router      = require('express').Router();
+let sass        = require('node-sass');
+let fs          = require('fs');
+let path        = require('path');
+let parseData   = require('../modules/projects/parser');
+let projectData = require('../modules/projects/project');
+
 
 router.get('/', (req, res) => {
     let projects = req.database.getCollection('projects');
@@ -14,59 +17,42 @@ router.get('/', (req, res) => {
 
 router.get('/:projectid', (req, res) => {
     let projects = req.database.getCollection('projects');
+    let project  = projects.get(req.params.projectid);
 
-    fs.readFile(require.resolve('bootstrap/scss/_variables.scss'), (err, data) => {
-        if (err) throw err;
-        let bsdata = data.toString();
+    parseData.parseFile(project).then((varData) => {
 
         res.render('projects/edit', {
             title: 'Projects',
-            project: projects.get(req.params.projectid),
-            bsdata: bsdata
+            project: project,
+            varData: varData,
+            cssFile: projectData.getCss(req.publicDir, project)
         });
     });
 });
 
 router.post('/:projectid', (req, res) => {
-    let projects    = req.database.getCollection('projects');
-    let project     = projects.get(req.params.projectid);
-    project.content = req.body.content;
+    let projects = req.database.getCollection('projects');
+    let project  = projects.get(req.params.projectid);
 
-    let projectDir = req.dataDir + '/' + req.params.projectid;
-    if (false === fs.existsSync(projectDir)) {
-        fs.mkdir(projectDir);
-    }
-    let outDir = projectDir + '/css';
-    if (false === fs.existsSync(outDir)) {
-        fs.mkdir(outDir);
-    }
-
-    let outputFile = outDir + '/project.css';
-    projectDir     = req.dataDir + '/' + req.params.projectid + '/scss';
-    if (false === fs.existsSync(projectDir)) {
-        fs.mkdir(projectDir);
-    }
-    let projectFile  = projectDir + '/project.scss';
-    let variableFile = projectDir + '/_variables.scss';
-    fs.writeFile(variableFile, project.content, () => {
-        sass.render({
-            file: projectFile,
-            outFile: outputFile,
-
-            sourceMap: true
-        }, (err, result) => {
-            console.log(err);
-
-            if (!err) {
-                // No errors during the compilation, write this result on the disk
-                console.log(result.css.toString());
-                fs.writeFile(outputFile, result.css, () => {
-                    res.redirect('/projects/' + project.$loki);
-                });
+    parseData.parseFile().then((varData) => {
+        let changed = [];
+        for (varItem of varData) {
+            let posted = req.body['field[' + varItem.name + ']'];
+            if (posted) {
+                if (posted !== varItem.value) {
+                    changed.push(varItem.name + ': ' + posted);
+                }
             }
-        });
-    });
+        }
 
+        project.content = changed.join(';\n\r') + ';';
+        projects.update(project);
+
+        projectData.render(req.dataDir, req.publicDir, project)
+            .then(() => {
+                res.redirect('/projects/' + project.$loki);
+            });
+    });
 });
 
 module.exports = router;

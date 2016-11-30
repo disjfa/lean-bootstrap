@@ -1,15 +1,25 @@
-<section>
+<section class="bg-info py-1 px-1">
     <h3>{{project.name}}</h3>
 </section>
 
-<section>
+<section class="py-3">
     <form action="/projects/{{project.$loki}}" method="post">
         <div>
-            <textarea name="content" id="content" cols="30" rows="10">{{project.content}}</textarea>
+            <textarea name="content" id="content" cols="30" rows="10" class="form-control">{{project.content}}</textarea>
         </div>
-        <button type="submit">save</button>
+
+        <button type="submit" class="btn btn-primary">
+            save
+        </button>
+        {{#each varData}}
+        <div class="form-group">
+            <label for="">{{name}}</label>
+            <input type="text" name="field[{{name}}]" value="{{value}}" class="form-control">
+        </div>
+        {{/each}}
+
+        <button type="submit" class="btn btn-primary">
+            save
+        </button>
     </form>
-<pre>
-    {{bsdata}}
-</pre>
 </section>
