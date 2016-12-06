@@ -21,10 +21,12 @@ router.get('/:projectid', (req, res) => {
 
     parseData.parseFile(project).then((varData) => {
 
+
         res.render('projects/edit', {
             title: 'Projects',
             project: project,
             varData: varData,
+            groupData: parseData.groupData(varData),
             cssFile: projectData.getCss(req.publicDir, project)
         });
     });

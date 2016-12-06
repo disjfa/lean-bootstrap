@@ -11,12 +11,28 @@
         <button type="submit" class="btn btn-primary">
             save
         </button>
-        {{#each varData}}
-        <div class="form-group">
-            <label for="">{{name}}</label>
-            <input type="text" name="field[{{name}}]" value="{{value}}" class="form-control">
+
+        <div id="group-list">
+            {{#each groupData}}
+                <div class="card">
+                    <a data-toggle="collapse" data-parent="#group-list" href="#key-{{@key}}-group" class="card-header" id="key-{{@key}}" style="display: block">
+                        <h5 class="mb-0">
+                        {{@key}}
+                        </h5>
+                    </a>
+                    <div id="key-{{@key}}-group" class="collapse" role="tabpanel" aria-labelledby="key-{{@key}}">
+                        <div class="card-block">
+                            {{#each this}}
+                                <div class="form-group">
+                                    <label for="">{{name}}</label>
+                                    <input type="text" name="field[{{name}}]" value="{{value}}" class="form-control">
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
         </div>
-        {{/each}}
 
         <button type="submit" class="btn btn-primary">
             save

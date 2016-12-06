@@ -1,5 +1,20 @@
 let fs = require('fs');
 
+function escapeHtml(text) {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function (m) {
+        return map[m];
+    });
+}
+
+
 exports.parseFile = (project) => {
     let bootstrapVariables = require.resolve('bootstrap/scss/_variables.scss');
 
@@ -11,7 +26,7 @@ exports.parseFile = (project) => {
 
             let bsdata = data.toString();
 
-            let sassVariables = bsdata.match(/^\$[^]+?\;/gm);
+            let sassVariables = bsdata.match(/^\$[^]+?\;$/gm);
             let myData        = [];
 
             if (project) {
@@ -33,21 +48,37 @@ exports.parseFile = (project) => {
                 variable       = variable.replace('!default;', '');
                 let varDetails = variable.split(':');
                 let item       = false;
+
                 if (varDetails.length === 2) {
                     item = {
                         name: varDetails[0].trim(),
                         value: varDetails[1].trim(),
                     };
-                }
-                for (let myVariable of myData) {
-                    if (myVariable.name === item.name) {
-                        item.value = myVariable.value;
+                    for (let myVariable of myData) {
+                        if (myVariable.name === item.name) {
+                            item.value = myVariable.value;
+                            item.altered = true;
+                        }
                     }
+                    varData.push(item);
                 }
-                varData.push(item);
             }
 
             resolve(varData);
         })
     });
+};
+
+exports.groupData = (varData) => {
+    let groups = {};
+    for(item of varData) {
+        let itemGroupName = item.name.split('-');
+        let groupName = itemGroupName[0].replace(/\$/, '');
+        if(!groups[groupName]) {
+            groups[groupName] = [];
+        }
+        groups[groupName].push(item);
+    }
+
+    return groups;
 };
