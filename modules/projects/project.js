@@ -58,7 +58,7 @@ exports.render = (dataDir, publicDataDir, project) => {
     let variableFile = getVariableFile(dataDir, project);
     let outputFile   = getCssFile(publicDataDir, project);
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         fs.writeFile(variableFile, project.content, () => {
             sass.render({
                 file: projectFile,
@@ -66,12 +66,17 @@ exports.render = (dataDir, publicDataDir, project) => {
 
                 sourceMap: true
             }, (err, result) => {
-                if (!err) {
-                    // No errors during the compilation, write this result on the disk
-                    fs.writeFile(outputFile, result.css, () => {
-                        resolve('saved');
-                    });
+                console.log(err);
+                if (err) {
+                    reject(Error(err));
+                    return;
                 }
+
+                // No errors during the compilation, write this result on the disk
+                fs.writeFile(outputFile, result.css, () => {
+                    resolve('saved');
+                });
+
             });
         });
     });

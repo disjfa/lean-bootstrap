@@ -53,6 +53,8 @@ router.post('/:projectid', (req, res) => {
         projectData.render(req.dataDir, req.publicDir, project)
             .then(() => {
                 res.redirect('/projects/' + project.$loki);
+            }, function(err) {
+                res.redirect('/projects/' + project.$loki + '?error=' + err.message);
             });
     });
 });
