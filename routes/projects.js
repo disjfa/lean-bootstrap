@@ -15,20 +15,45 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/create', (req, res) => {
+    res.render('projects/create', {
+        title: 'Create project',
+    });
+});
+
+router.post('/', (req, res) => {
+    let projects = req.database.getCollection('projects');
+    if(req.body.name) {
+        let project = projects.insert({
+            name:req.body.name
+        });
+
+        res.redirect('/projects/' + project.$loki);
+    }
+});
+
 router.get('/:projectid', (req, res) => {
     let projects = req.database.getCollection('projects');
     let project  = projects.get(req.params.projectid);
 
     parseData.parseFile(project).then((varData) => {
-
-
-        res.render('projects/edit', {
+        res.render('projects/show', {
             title: 'Projects',
             project: project,
             varData: varData,
-            groupData: parseData.groupData(varData),
-            cssFile: projectData.getCss(req.publicDir, project)
+            groupData: parseData.groupData(varData)
         });
+    });
+});
+
+router.get('/:projectid/:page', (req, res) => {
+    let projects = req.database.getCollection('projects');
+    let project  = projects.get(req.params.projectid);
+
+    res.render('projects/edit', {
+        layout: 'project',
+        title: 'Projects',
+        cssFile: projectData.getCss(req.publicDir, project)
     });
 });
 
@@ -41,19 +66,17 @@ router.post('/:projectid', (req, res) => {
         for (varItem of varData) {
             let posted = req.body['field[' + varItem.name + ']'];
             if (posted) {
-                if (posted !== varItem.value) {
-                    changed.push(varItem.name + ': ' + posted);
-                }
+                changed.push(varItem.name + ': ' + posted);
             }
         }
 
-        project.content = changed.join(';\n\r') + ';';
+        project.content = changed.join(';\n') + ';';
         projects.update(project);
 
         projectData.render(req.dataDir, req.publicDir, project)
             .then(() => {
                 res.redirect('/projects/' + project.$loki);
-            }, function(err) {
+            }, function (err) {
                 res.redirect('/projects/' + project.$loki + '?error=' + err.message);
             });
     });

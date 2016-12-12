@@ -1,11 +1,13 @@
-<section>
-    <h3>{{title}}</h3>
-</section>
+<div class="container py-2">
+    <section>
+        <h3>{{title}}</h3>
+    </section>
 
-<section>
-    {{#each projects}}
-        <a href="/projects/{{$loki}}">
-            {{name}}
-        </a>
-    {{/each}}
-</section>
+    <section>
+        {{#each projects}}
+            <a href="/projects/{{$loki}}">
+                {{name}}
+            </a>
+        {{/each}}
+    </section>
+</div>

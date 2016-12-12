@@ -1,0 +1,45 @@
+<div class="projects">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 projects-data">
+                <h1>{{project.name}}</h1>
+                <iframe src="/projects/{{project.$loki}}/aa" style="width: 1024px; height: 768px;" frameborder="0"></iframe>
+            </div>
+            <div class="col-lg-3 projects-data">
+                <form action="/projects/{{project.$loki}}" method="post">
+                    <div id="group-list">
+                        {{#each groupData}}
+                            <div class="card">
+                                <a data-toggle="collapse" data-parent="#group-list" href="#key-{{@key}}-group" class="card-header" id="key-{{@key}}" style="display: block">
+                                    <h5 class="mb-0">
+                                        {{@key}}
+                                    </h5>
+                                </a>
+                                <div id="key-{{@key}}-group" class="collapse" role="tabpanel" aria-labelledby="key-{{@key}}">
+                                    <div class="card-block">
+                                        {{#each this}}
+                                            <div class="form-group">
+                                                <label for="">{{name}}</label>
+                                                <input type="text" name="field[{{name}}]" value="{{value}}" class="form-control">
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">
+                                            save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        save
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

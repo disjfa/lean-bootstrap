@@ -4899,3 +4899,10 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+.projects {
+  background: #AAA; }
+  .projects .projects-data {
+    padding: 20px 0;
+    height: calc(100vh - 108px);
+    overflow: auto; }

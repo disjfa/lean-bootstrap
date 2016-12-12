@@ -58,6 +58,10 @@ exports.render = (dataDir, publicDataDir, project) => {
     let variableFile = getVariableFile(dataDir, project);
     let outputFile   = getCssFile(publicDataDir, project);
 
+    if(false === fs.existsSync(projectFile)) {
+        fs.createReadStream(dataDir + '/base/project.scss').pipe(fs.createWriteStream(projectFile));
+    }
+
     return new Promise((resolve, reject) => {
         fs.writeFile(variableFile, project.content, () => {
             sass.render({

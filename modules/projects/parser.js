@@ -26,10 +26,10 @@ exports.parseFile = (project) => {
 
             let bsdata = data.toString();
 
-            let sassVariables = bsdata.match(/^\$[^]+?\;$/gm);
+            let sassVariables = bsdata.match(/^\$[^]+?\;/gm);
             let myData        = [];
 
-            if (project) {
+            if (project && project.content) {
                 let myVariables = project.content.match(/^\$[^]+?\;/gm);
                 for (let variable of myVariables) {
                     variable       = variable.replace(';', '');
@@ -69,6 +69,10 @@ exports.parseFile = (project) => {
     });
 };
 
+function sortObject(o) {
+    return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {});
+}
+
 exports.groupData = (varData) => {
     let groups = {};
     for(item of varData) {
@@ -80,5 +84,5 @@ exports.groupData = (varData) => {
         groups[groupName].push(item);
     }
 
-    return groups;
+    return sortObject(groups);
 };
