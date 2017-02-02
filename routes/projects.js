@@ -8,11 +8,7 @@ let projectData = require('../modules/projects/project');
 
 router.get('/', (req, res) => {
     let projects = req.database.getCollection('projects');
-
-    res.render('projects/index', {
-        title: 'Projects',
-        projects: projects.find()
-    });
+    res.send(projects);
 });
 
 router.get('/create', (req, res) => {
@@ -23,9 +19,9 @@ router.get('/create', (req, res) => {
 
 router.post('/', (req, res) => {
     let projects = req.database.getCollection('projects');
-    if(req.body.name) {
+    if (req.body.name) {
         let project = projects.insert({
-            name:req.body.name
+            name: req.body.name
         });
 
         res.redirect('/projects/' + project.$loki);
@@ -46,7 +42,7 @@ router.get('/:projectid', (req, res) => {
     });
 });
 
-router.get('/:projectid/:page', (req, res) => {
+router.get('/:projectid(\\d+)/:page', (req, res) => {
     let projects = req.database.getCollection('projects');
     let project  = projects.get(req.params.projectid);
 

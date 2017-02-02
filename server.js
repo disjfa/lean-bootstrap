@@ -47,4 +47,4 @@ app.use((req, res, next) => {
 routes.create(app);
 
 //server
-app.listen(app.get('port'), '0.0.0.0', () => console.log('Listening on http://localhost:' + app.get('port')));
+app.listen(app.get('port'), '0.0.0.0', () => console.log('Listening on http://0.0.0.0:' + app.get('port')));
