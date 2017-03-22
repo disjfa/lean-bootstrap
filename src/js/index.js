@@ -9,8 +9,8 @@ require('bootstrap/dist/js/bootstrap.js');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './views/app.vue';
-import Projects from './views/projects.vue';
-
+import Projects from './modules/projects/views/projects.vue';
+import store from './store';
 
 const routes = [
     {
@@ -37,5 +37,6 @@ Vue.use(myComponents);
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#base');

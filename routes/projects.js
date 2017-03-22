@@ -8,7 +8,7 @@ let projectData = require('../modules/projects/project');
 
 router.get('/', (req, res) => {
     let projects = req.database.getCollection('projects');
-    res.send(projects);
+    res.send(projects.data);
 });
 
 router.get('/create', (req, res) => {
