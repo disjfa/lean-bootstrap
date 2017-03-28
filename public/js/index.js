@@ -29867,7 +29867,9 @@ exports.default = {
             return this.item.to ? 'router-link' : 'a';
         },
         goTo: function goTo() {
-            return this.item.to;
+            return {
+                name: this.item.to
+            };
         }
     }
 };
@@ -30018,9 +30020,13 @@ var _app = require('./views/app.vue');
 
 var _app2 = _interopRequireDefault(_app);
 
-var _projects = require('./modules/projects/views/projects.vue');
+var _Projects = require('./modules/projects/views/Projects.vue');
 
-var _projects2 = _interopRequireDefault(_projects);
+var _Projects2 = _interopRequireDefault(_Projects);
+
+var _ProjectDetails = require('./modules/projects/views/ProjectDetails.vue');
+
+var _ProjectDetails2 = _interopRequireDefault(_ProjectDetails);
 
 var _store = require('./store');
 
@@ -30042,10 +30048,15 @@ require('bootstrap/dist/js/bootstrap.js');
 
 var routes = [{
     path: '/projects',
-    component: _projects2.default,
+    component: _Projects2.default,
     label: 'Projects',
     name: 'projects',
     menu: true
+}, {
+    path: '/projects/:id',
+    component: _ProjectDetails2.default,
+    label: 'Project details',
+    name: 'project-details'
 }, {
     path: '*',
     redirect: 'projects'
@@ -30066,7 +30077,7 @@ new _vue2.default({
     }
 }).$mount('#base');
 
-},{"./components/plugin":43,"./modules/projects/views/projects.vue":50,"./store":51,"./views/app.vue":52,"bootstrap/dist/js/bootstrap.js":26,"jquery":27,"tether":29,"vue":32,"vue-router":31}],45:[function(require,module,exports){
+},{"./components/plugin":43,"./modules/projects/views/ProjectDetails.vue":50,"./modules/projects/views/Projects.vue":51,"./store":52,"./views/app.vue":53,"bootstrap/dist/js/bootstrap.js":26,"jquery":27,"tether":29,"vue":32,"vue-router":31}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30084,6 +30095,14 @@ exports.default = {
         _axios2.default.get('/projects').then(function (response) {
             context.commit('load', response.data);
         });
+    },
+    loadProject: function loadProject(context, payload) {
+        _axios2.default.get('/projects/' + payload).then(function (response) {
+            context.commit('loadProject', response.data);
+        });
+    },
+    saveProjectData: function saveProjectData(state, payload, aa) {
+        _axios2.default.post('/projects/' + payload.id + '/data', payload.formData);
     }
 };
 
@@ -30096,6 +30115,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     getProjects: function getProjects(state) {
         return state.projects;
+    },
+    getProject: function getProject(state) {
+        if (state.project) {
+            return state.project;
+        }
+        return false;
     }
 };
 
@@ -30143,6 +30168,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     load: function load(state, payload) {
         state.projects = payload;
+    },
+    loadProject: function loadProject(state, payload) {
+        state.project = payload;
     }
 };
 
@@ -30155,10 +30183,80 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     projects: [{
         demo: 'tralala'
-    }]
+    }],
+    project: false
 };
 
 },{}],50:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _vuex = require('vuex');
+
+exports.default = {
+    name: 'app',
+    computed: (0, _vuex.mapGetters)({
+        project: 'projects/getProject'
+    }),
+    mounted: function mounted() {
+        this.$store.dispatch('projects/loadProject', this.$route.params.id);
+    },
+
+    methods: {
+        saveGroupData: function saveGroupData() {
+            var _project = this.project,
+                groupData = _project.groupData,
+                project = _project.project;
+
+            var formData = {};
+            for (var i in groupData) {
+                if (!groupData.hasOwnProperty(i)) {
+                    continue;
+                }
+                for (var j in groupData[i]) {
+                    if (!groupData[i][j]) {
+                        continue;
+                    }
+
+                    formData[groupData[i][j].name] = groupData[i][j].value;
+                }
+            }
+            this.$store.dispatch('projects/saveProjectData', { id: project.$loki, formData: formData });
+        }
+    },
+    watch: {
+        '$route': function $route(to, from) {
+            console.log(to.params.id);
+        }
+    },
+    events: {
+        test: function test(message) {
+            this.message = message;
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('h1',[_vm._v(_vm._s(_vm.project.project.name))]),_vm._v(" "),_c('div',{attrs:{"id":"groupData"}},_vm._l((_vm.project.groupData),function(groupData,groupName){return _c('div',[_c('h3',[_c('a',{attrs:{"href":'#group-' + groupName,"data-toggle":"collapse"}},[_vm._v("\n                        "+_vm._s(groupName)+"\n                    ")])]),_vm._v(" "),_c('div',{staticClass:"collapse",attrs:{"id":'group-' + groupName}},[_vm._l((groupData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":""}},[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])])],2)])}))]):_vm._e()])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2eb48ccd", __vue__options__)
+  } else {
+    hotAPI.rerender("data-v-2eb48ccd", __vue__options__)
+  }
+})()}
+
+},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],51:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30175,6 +30273,7 @@ exports.default = {
     }),
     mounted: function mounted() {
         this.$store.dispatch('projects/load');
+        console.log(this.$router);
     },
 
     events: {
@@ -30187,20 +30286,20 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',[_vm._v("\n    aaakrakaka\n\n    "),_vm._l((_vm.projects),function(project){return _c('div',[_vm._v("\n        "+_vm._s(project.name)+"\n        "+_vm._s(project.$loki)+"\n    ")])})],2)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',[_c('h1',[_vm._v("Projects")]),_vm._v(" "),_c('div',{staticClass:"list-group"},_vm._l((_vm.projects),function(project){return _c('router-link',{staticClass:"list-group-item",attrs:{"to":{name: 'project-details', params: { id: project.$loki }}}},[_vm._v("\n            "+_vm._s(project.name)+"\n        ")])}))])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-169528be", __vue__options__)
+    hotAPI.createRecord("data-v-20607cde", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-169528be", __vue__options__)
+    hotAPI.reload("data-v-20607cde", __vue__options__)
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],51:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30231,7 +30330,7 @@ var store = new _vuex2.default.Store({
 
 exports.default = store;
 
-},{"./../modules/projects/store":47,"vue":32,"vuex":33}],52:[function(require,module,exports){
+},{"./../modules/projects/store":47,"vue":32,"vuex":33}],53:[function(require,module,exports){
 ;(function(){
 'use strict';
 

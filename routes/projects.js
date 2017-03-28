@@ -33,11 +33,10 @@ router.get('/:projectid', (req, res) => {
     let project  = projects.get(req.params.projectid);
 
     parseData.parseFile(project).then((varData) => {
-        res.render('projects/show', {
-            title: 'Projects',
-            project: project,
-            varData: varData,
-            groupData: parseData.groupData(varData)
+        res.send({
+            project,
+            varData,
+            groupData: parseData.groupData(varData),
         });
     });
 });
@@ -52,6 +51,29 @@ router.get('/:projectid(\\d+)/:page', (req, res) => {
         cssFile: projectData.getCss(req.publicDir, project)
     });
 });
+
+router.post('/:projectid/data', (req, res) => {
+    let projects = req.database.getCollection('projects');
+    let project  = projects.get(req.params.projectid);
+
+    parseData.parseFile().then((varData) => {
+        let changed = [];
+        for (varItem of varData) {
+            let posted = req.body[varItem.name];
+            if (posted) {
+                changed.push(varItem.name + ': ' + posted);
+            }
+        }
+
+        project.content = changed.join(';\n') + ';';
+        projects.update(project);
+        res.send({
+            message: 'success',
+            project,
+        })
+    });
+});
+
 
 router.post('/:projectid', (req, res) => {
     let projects = req.database.getCollection('projects');

@@ -15,7 +15,9 @@
                 return this.item.to ? 'router-link' : 'a';
             },
             goTo() {
-                return this.item.to;
+                return {
+                    name: this.item.to,
+                };
             }
         }
     }

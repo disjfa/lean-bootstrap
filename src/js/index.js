@@ -9,7 +9,8 @@ require('bootstrap/dist/js/bootstrap.js');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './views/app.vue';
-import Projects from './modules/projects/views/projects.vue';
+import Projects from './modules/projects/views/Projects.vue';
+import ProjectDetails from './modules/projects/views/ProjectDetails.vue';
 import store from './store';
 
 const routes = [
@@ -19,6 +20,12 @@ const routes = [
         label: 'Projects',
         name: 'projects',
         menu: true,
+    },
+    {
+        path: '/projects/:id',
+        component: ProjectDetails,
+        label: 'Project details',
+        name: 'project-details',
     },
     {
         path: '*',
