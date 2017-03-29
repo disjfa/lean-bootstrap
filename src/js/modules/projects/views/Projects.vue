@@ -19,7 +19,6 @@
         }),
         mounted() {
             this.$store.dispatch('projects/load');
-            console.log(this.$router);
         },
         events: {
             test(message) {

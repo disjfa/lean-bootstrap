@@ -67,10 +67,20 @@ router.post('/:projectid/data', (req, res) => {
 
         project.content = changed.join(';\n') + ';';
         projects.update(project);
-        res.send({
-            message: 'success',
-            project,
-        })
+
+        projectData.render(req.dataDir, req.publicDir, project)
+            .then(() => {
+                res.send({
+                    message: 'success',
+                    project,
+                });
+            })
+            .catch(error => {
+                res.send({
+                    message: 'failed',
+                    error,
+                }, 400 );
+            });
     });
 });
 

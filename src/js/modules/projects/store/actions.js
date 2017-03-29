@@ -13,6 +13,16 @@ export default {
             });
     },
     saveProjectData(state, payload, aa) {
-        axios.post('/projects/' + payload.id + '/data', payload.formData);
+        axios({
+            method: 'post',
+            url: '/projects/' + payload.id + '/data',
+            data: payload.formData,
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(res => {
+                console.log(res);
+            });
     }
 }

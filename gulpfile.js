@@ -56,7 +56,7 @@ gulp.task('watchify', function () {
     let bundler = watchify(browserify('./src/js/index.js', args))
         .transform(vueify)
         .transform(babelify, {
-            presets: ['es2015']
+            presets: ['stage-2', 'es2015']
         });
     bundle_js(bundler);
 
