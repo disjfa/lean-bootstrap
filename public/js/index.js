@@ -30661,7 +30661,7 @@ exports.default = {
             var _this = this;
 
             return this.project.varData.filter(function (item) {
-                return item.name.indexOf(_this.search) > -1;
+                return item.name.indexOf(_this.search) > -1 || item.value.indexOf(_this.search) > -1;
             });
         }
     }, (0, _vuex.mapGetters)({
@@ -30703,7 +30703,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('h1',[_vm._v(_vm._s(_vm.project.project.name))]),_vm._v(" "),_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9"},[_c('div',{staticClass:"embed-responsive embed-responsive-16by9"},[_c('iframe',{staticClass:"embed-responsive-item",attrs:{"src":"/projects/2/aa","frameborder":"0"}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-3"},[_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Filter..."},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-adjust"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":""}},[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])])],2)])])]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white"},[_c('h1',[_vm._v(_vm._s(_vm.project.project.name))]),_vm._v(" "),_c('div',{staticClass:"embed-responsive embed-responsive-16by9"},[_c('iframe',{staticClass:"embed-responsive-item",attrs:{"src":'/projects/' + _vm.project.project.$loki + '/aa',"frameborder":"0"}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Filter..."},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-adjust"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":""}},[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])])],2)])])]):_vm._e()])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30826,7 +30826,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('navbar',{attrs:{"items":_vm.routes}}),_vm._v(" "),_c('div',{staticClass:"container"},[_c('h1',[_vm._v(_vm._s(_vm.message))])]),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('navbar',{attrs:{"items":_vm.routes}}),_vm._v(" "),_c('router-view')],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30835,7 +30835,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-7f819b96", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7f819b96", __vue__options__)
+    hotAPI.rerender("data-v-7f819b96", __vue__options__)
   }
 })()}
 

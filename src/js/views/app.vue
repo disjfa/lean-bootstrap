@@ -3,9 +3,6 @@
         <navbar :items="routes">
 
         </navbar>
-        <div class="container">
-            <h1>{{ message }}</h1>
-        </div>
         <router-view></router-view>
     </div>
 </template>

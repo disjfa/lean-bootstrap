@@ -55,7 +55,8 @@ exports.parseFile = (project) => {
                         value: varDetails[1].trim(),
                     };
                     for (let myVariable of myData) {
-                        if (myVariable.name === item.name) {
+                        if (myVariable.name === item.name && item.value !== myVariable.value) {
+                            item.original = item.value;
                             item.value = myVariable.value;
                             item.altered = true;
                         }

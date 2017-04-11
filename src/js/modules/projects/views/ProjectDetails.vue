@@ -1,14 +1,14 @@
 <template>
-    <container fluid>
+    <container fluid class="projects">
         <div v-if="project">
-            <h1>{{project.project.name}}</h1>
             <div class="row">
-                <div class="col-9">
+                <div class="col-9 bg-inverse text-white">
+                    <h1>{{project.project.name}}</h1>
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe src="/projects/2/aa" frameborder="0" class="embed-responsive-item"></iframe>
+                        <iframe :src="'/projects/' + project.project.$loki + '/aa'" frameborder="0" class="embed-responsive-item"></iframe>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 projects-data bg-faded py-3">
                     <div id="groupData">
                         <div class="form-group">
                             <div class="input-group">
@@ -53,7 +53,7 @@
         computed: Object.assign({
             varData() {
                 return this.project.varData.filter(item => {
-                    return item.name.indexOf(this.search) > -1;
+                    return item.name.indexOf(this.search) > -1 || item.value.indexOf(this.search) > -1;
                 });
             }
         }, mapGetters({

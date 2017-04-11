@@ -32,11 +32,10 @@ router.get('/:projectid', (req, res) => {
     let projects = req.database.getCollection('projects');
     let project  = projects.get(req.params.projectid);
 
-    parseData.parseFile(project).then((varData) => {
+    parseData.parseFile(project).then(varData => {
         res.send({
             project,
             varData,
-            groupData: parseData.groupData(varData),
         });
     });
 });
@@ -64,22 +63,22 @@ router.post('/:projectid/data', (req, res) => {
                 changed.push(varItem.name + ': ' + posted);
             }
         }
-
+        const content   = project.content;
         project.content = changed.join(';\n') + ';';
-        projects.update(project);
-
         projectData.render(req.dataDir, req.publicDir, project)
             .then(() => {
+                projects.update(project);
                 res.send({
                     message: 'success',
                     project,
                 });
             })
             .catch(error => {
-                res.send({
+                project.content = content;
+                res.status(400).send({
                     message: 'failed',
                     error,
-                }, 400 );
+                });
             });
     });
 });

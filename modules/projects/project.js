@@ -70,9 +70,8 @@ exports.render = (dataDir, publicDataDir, project) => {
 
                 sourceMap: true
             }, (err, result) => {
-                console.log(err);
                 if (err) {
-                    reject(Error(err));
+                    reject(err);
                     return;
                 }
 
