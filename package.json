@@ -17,6 +17,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "handlebars": "^4.0.5",
     "lokijs": "^1.4.3",
+    "uuid": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "vue": "^2.2.4",

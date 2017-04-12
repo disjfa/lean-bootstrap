@@ -30369,7 +30369,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{staticClass:"navbar navbar-toggleable-md",class:_vm.classes},[_c('container',[_vm._t("default"),_vm._v(" "),_c('navbarNav',{attrs:{"items":_vm.items}})],2)],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{staticClass:"navbar navbar-toggleable-md",class:_vm.classes},[_vm._t("default"),_vm._v(" "),_c('navbarNav',{attrs:{"items":_vm.items}})],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30685,7 +30685,7 @@ exports.default = {
 
                 formData[varData[i].name] = varData[i].value;
             }
-            this.$store.dispatch('projects/saveProjectData', { id: project.$loki, formData: formData });
+            this.$store.dispatch('projects/saveProjectData', { id: project.uuid, formData: formData });
         }
     },
     watch: {
@@ -30703,7 +30703,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white"},[_c('h1',[_vm._v(_vm._s(_vm.project.project.name))]),_vm._v(" "),_c('div',{staticClass:"embed-responsive embed-responsive-16by9"},[_c('iframe',{staticClass:"embed-responsive-item",attrs:{"src":'/projects/' + _vm.project.project.$loki + '/aa',"frameborder":"0"}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Filter..."},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-adjust"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":""}},[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])])],2)])])]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white"},[_c('h1',[_vm._v(_vm._s(_vm.project.project.name))]),_vm._v(" "),_c('div',{staticClass:"embed-responsive embed-responsive-16by9"},[_c('iframe',{staticClass:"embed-responsive-item",attrs:{"src":'/projects/' + _vm.project.project.uuid + '/home',"frameborder":"0"}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"search","placeholder":"Filter..."},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-adjust"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":""}},[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])])],2)])])]):_vm._e()])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30745,7 +30745,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',[_c('h1',[_vm._v("Projects")]),_vm._v(" "),_c('div',{staticClass:"list-group"},_vm._l((_vm.projects),function(project){return _c('router-link',{staticClass:"list-group-item",attrs:{"to":{name: 'project-details', params: { id: project.$loki }}}},[_vm._v("\n            "+_vm._s(project.name)+"\n        ")])}))])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',[_c('h1',[_vm._v("Projects")]),_vm._v(" "),_c('div',{staticClass:"list-group"},_vm._l((_vm.projects),function(project){return _c('router-link',{staticClass:"list-group-item",attrs:{"to":{name: 'project-details', params: { id: project.uuid }}}},[_vm._v("\n            "+_vm._s(project.name)+"\n        ")])}))])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30754,7 +30754,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-20607cde", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20607cde", __vue__options__)
+    hotAPI.rerender("data-v-20607cde", __vue__options__)
   }
 })()}
 
@@ -30835,7 +30835,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-7f819b96", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-7f819b96", __vue__options__)
+    hotAPI.reload("data-v-7f819b96", __vue__options__)
   }
 })()}
 

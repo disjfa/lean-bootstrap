@@ -4,7 +4,7 @@ let fs          = require('fs');
 let path        = require('path');
 let parseData   = require('../modules/projects/parser');
 let projectData = require('../modules/projects/project');
-
+let uuid        = require('uuid/v4');
 
 router.get('/', (req, res) => {
     let projects = req.database.getCollection('projects');
@@ -28,9 +28,9 @@ router.post('/', (req, res) => {
     }
 });
 
-router.get('/:projectid', (req, res) => {
+router.get('/:uuid', (req, res) => {
     let projects = req.database.getCollection('projects');
-    let project  = projects.get(req.params.projectid);
+    let project  = projects.findOne({uuid: req.params.uuid});
 
     parseData.parseFile(project).then(varData => {
         res.send({
@@ -40,20 +40,33 @@ router.get('/:projectid', (req, res) => {
     });
 });
 
-router.get('/:projectid(\\d+)/:page', (req, res) => {
+router.get('/:uuid/:page', (req, res) => {
     let projects = req.database.getCollection('projects');
-    let project  = projects.get(req.params.projectid);
+    let project  = projects.findOne({uuid: req.params.uuid});
+    let pagename = req.params.page.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-    res.render('projects/edit', {
+    let pageslug = 'projects/pages/home';
+    try {
+        let page = fs.lstatSync(req.viewsDir + '/projects/pages/' + pagename + '.hbs');
+        if (page.isFile()) {
+            pageslug = 'projects/pages/' + pagename;
+        }
+    }
+    catch (err) {
+        // nope
+    }
+
+    res.render(pageslug, {
         layout: 'project',
         title: 'Projects',
+        project: project,
         cssFile: projectData.getCss(req.publicDir, project)
     });
 });
 
-router.post('/:projectid/data', (req, res) => {
+router.post('/:uuid/data', (req, res) => {
     let projects = req.database.getCollection('projects');
-    let project  = projects.get(req.params.projectid);
+    let project  = projects.findOne({uuid: req.params.uuid});
 
     parseData.parseFile().then((varData) => {
         let changed = [];
@@ -84,9 +97,9 @@ router.post('/:projectid/data', (req, res) => {
 });
 
 
-router.post('/:projectid', (req, res) => {
+router.post('/:uuid', (req, res) => {
     let projects = req.database.getCollection('projects');
-    let project  = projects.get(req.params.projectid);
+    let project  = projects.findOne({uuid: req.params.uuid});
 
     parseData.parseFile().then((varData) => {
         let changed = [];

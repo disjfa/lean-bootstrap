@@ -5,7 +5,7 @@ function getProjectDir(dataDir, project) {
     if (false === fs.existsSync(dataDir)) {
         fs.mkdir(dataDir);
     }
-    let projectDir = dataDir + '/' + project.$loki;
+    let projectDir = dataDir + '/' + project.uuid;
     if (false === fs.existsSync(projectDir)) {
         fs.mkdir(projectDir);
     }

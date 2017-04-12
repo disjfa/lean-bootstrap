@@ -5,14 +5,14 @@
                 <div class="col-9 bg-inverse text-white">
                     <h1>{{project.project.name}}</h1>
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe :src="'/projects/' + project.project.$loki + '/aa'" frameborder="0" class="embed-responsive-item"></iframe>
+                        <iframe :src="'/projects/' + project.project.uuid + '/home'" frameborder="0" class="embed-responsive-item"></iframe>
                     </div>
                 </div>
                 <div class="col-3 projects-data bg-faded py-3">
                     <div id="groupData">
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" v-model="search" class="form-control" placeholder="Filter...">
+                                <input type="search" v-model="search" class="form-control" placeholder="Filter...">
                                 <div class="input-group-addon">
                                     <i class="fa fa-adjust"></i>
                                 </div>
@@ -73,7 +73,7 @@
 
                     formData[varData[i].name] = varData[i].value;
                 }
-                this.$store.dispatch('projects/saveProjectData', {id: project.$loki, formData});
+                this.$store.dispatch('projects/saveProjectData', {id: project.uuid, formData});
             }
         },
         watch: {

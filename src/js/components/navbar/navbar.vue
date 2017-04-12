@@ -1,11 +1,9 @@
 <template>
     <nav class="navbar navbar-toggleable-md" :class="classes">
-        <container>
-            <slot></slot>
-            <navbarNav :items="items">
+        <slot></slot>
+        <navbarNav :items="items">
 
-            </navbarNav>
-        </container>
+        </navbarNav>
     </nav>
 </template>
 <script>

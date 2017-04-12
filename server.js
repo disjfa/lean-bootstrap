@@ -35,6 +35,7 @@ app.use((req, res, next) => {
 
 //loki db reference for the router
 app.use((req, res, next) => {
+    req.viewsDir = app.get('views');
     req.dataDir = __dirname + '/data';
     req.publicDir = __dirname + '/public/css/data';
     if (false === fs.existsSync(req.dataDir)) {

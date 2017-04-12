@@ -3,7 +3,7 @@
         <h1>Projects</h1>
 
         <div class="list-group">
-            <router-link :to="{name: 'project-details', params: { id: project.$loki }}" class="list-group-item" v-for="project in projects">
+            <router-link :to="{name: 'project-details', params: { id: project.uuid }}" class="list-group-item" v-for="project in projects">
                 {{project.name}}
             </router-link>
         </div>
