@@ -21,10 +21,16 @@ router.post('/', (req, res) => {
     let projects = req.database.getCollection('projects');
     if (req.body.name) {
         let project = projects.insert({
-            name: req.body.name
+            uuid: uuid(),
+            name: req.body.name,
         });
 
-        res.redirect('/projects/' + project.$loki);
+        parseData.parseFile(project).then(varData => {
+            res.send({
+                project,
+                varData,
+            });
+        });
     }
 });
 

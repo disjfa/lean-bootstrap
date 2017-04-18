@@ -16,7 +16,7 @@ let rename      = require('gulp-rename');
 let sourcemaps  = require('gulp-sourcemaps');
 let vueify      = require('vueify');
 
-gulp.task('default', ['browser-sync', 'watchify'], function () {
+gulp.task('default', ['copy', 'browser-sync', 'watchify'], function () {
     gulp.watch('src/scss/**/*.scss', ['styles']);
 });
 
@@ -49,6 +49,11 @@ gulp.task('nodemon', function (cb) {
             started = true;
         }
     });
+});
+
+gulp.task('copy', function() {
+    gulp.src('./node_modules/font-awesome/fonts/*')
+        .pipe(gulp.dest('./public/fonts'));
 });
 
 gulp.task('watchify', function () {

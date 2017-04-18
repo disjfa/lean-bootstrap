@@ -10,7 +10,13 @@ let fs           = require('fs');
 let routes       = require('./routes');
 
 //setup
-let database = new loki('database.loki', {autoload: true, autosave: true});
+let database = new loki('database.loki', {
+    autoload: true,
+    autosave: true,
+});
+if(!database.getCollection('projects')) {
+    database.addCollection('projects');
+}
 let app      = express();
 
 //settings

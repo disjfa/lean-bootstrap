@@ -1,12 +1,19 @@
 <template>
-    <container>
+    <container class="py-3">
+        <div class="btn-group float-right py-2">
+            <router-link :to="{name: 'project-create'}" class="btn btn-primary">
+                Create new project
+            </router-link>
+        </div>
         <h1>Projects</h1>
-
+        <br>
         <div class="list-group">
-            <router-link :to="{name: 'project-details', params: { id: project.uuid }}" class="list-group-item" v-for="project in projects">
+            <router-link :to="{name: 'project-details', params: { id: project.uuid }}" class="list-group-item" v-for="project in projects" v-if="project.uuid">
                 {{project.name}}
             </router-link>
         </div>
+
+
     </container>
 </template>
 

@@ -3,3 +3,4 @@
 /data/*
 !/data/base
 /public/css/data/
+database.loki
