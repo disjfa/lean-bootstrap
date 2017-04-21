@@ -28,7 +28,7 @@ export default {
     saveProjectData(state, payload, aa) {
         axios({
             method: 'post',
-            url: '/projects/' + payload.id + '/data',
+            url: '/projects/' + payload.id,
             data: payload.formData,
         })
             .then(response => {
