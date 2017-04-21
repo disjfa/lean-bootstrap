@@ -1,0 +1,144 @@
+<section class="py-1 container">
+    <h1>Forms</h1>
+
+    <div class="row">
+        <div class="col-lg-4 py-1">
+            <h4>Default forms</h4>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleSelect1">Example select</label>
+                <select class="form-control" id="exampleSelect1">
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleSelect2">Example multiple select</label>
+                <select multiple class="form-control" id="exampleSelect2">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleTextarea">Example textarea</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </div>
+            <fieldset class="form-group">
+                <legend>Radio buttons</legend>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                        Option one is this and that&mdash;be sure to include why it's great
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                        Option two can be something else and selecting it will deselect option one
+                    </label>
+                </div>
+                <div class="form-check disabled">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                        Option three is disabled
+                    </label>
+                </div>
+            </fieldset>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                    Check me out
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-lg-4 py-1">
+            <h4>Custom forms</h4>
+            <div class="form-group">
+                <label for="customCheckBox">Custom checkbox</label>
+                <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheckBox">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Check this custom checkbox</span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Custom radio</label>
+                <div class="custom-controls-stacked">
+                    <label class="custom-control custom-radio">
+                        <input id="radio1" name="radio" type="radio" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Toggle this custom radio</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Or toggle this other custom radio</span>
+                    </label>
+                </div>
+            </div>
+            <h4>Input group</h4>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">@</span>
+                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            </div>
+            <br>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">@example.com</span>
+            </div>
+            <br>
+            <label for="basic-url">Your vanity URL</label>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon3">https://example.com/users/</span>
+                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                <span class="input-group-addon">.00</span>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <span class="input-group-addon">0.00</span>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+        </div>
+        <div class="col-lg-4 py-1">
+            <h4>Validation</h4>
+            <div class="form-group has-success">
+                <label class="form-control-label" for="inputSuccess1">Input with success</label>
+                <input type="text" class="form-control form-control-success" id="inputSuccess1">
+                <div class="form-control-feedback">Success! You've done it.</div>
+                <small class="form-text text-muted">Example help text that remains unchanged.</small>
+            </div>
+            <div class="form-group has-warning">
+                <label class="form-control-label" for="inputWarning1">Input with warning</label>
+                <input type="text" class="form-control form-control-warning" id="inputWarning1">
+                <div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
+                <small class="form-text text-muted">Example help text that remains unchanged.</small>
+            </div>
+            <div class="form-group has-danger">
+                <label class="form-control-label" for="inputDanger1">Input with danger</label>
+                <input type="text" class="form-control form-control-danger" id="inputDanger1">
+                <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
+                <small class="form-text text-muted">Example help text that remains unchanged.</small>
+            </div>
+        </div>
+    </div>
+</section>

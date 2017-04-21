@@ -8,4 +8,7 @@ export default {
         }
         return false;
     },
+    isFetching: (state) => {
+        return state.isFetching;
+    }
 }

@@ -30293,7 +30293,7 @@ new _vue2.default({
     }
 }).$mount('#base');
 
-},{"./components/plugin":43,"./modules/projects/views/ProjectCreate.vue":50,"./modules/projects/views/ProjectDetails.vue":51,"./modules/projects/views/Projects.vue":52,"./store":53,"./views/app.vue":54,"bootstrap/dist/js/bootstrap.js":26,"jquery":27,"tether":29,"vue":32,"vue-router":31}],45:[function(require,module,exports){
+},{"./components/plugin":43,"./modules/projects/views/ProjectCreate.vue":49,"./modules/projects/views/ProjectDetails.vue":50,"./modules/projects/views/Projects.vue":51,"./store":52,"./views/app.vue":53,"bootstrap/dist/js/bootstrap.js":26,"jquery":27,"tether":29,"vue":32,"vue-router":31}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30308,16 +30308,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     load: function load(context) {
+        context.commit('isFetching');
         _axios2.default.get('/projects').then(function (response) {
             context.commit('load', response.data);
         });
     },
     loadProject: function loadProject(context, payload) {
+        context.commit('isFetching');
         _axios2.default.get('/projects/' + payload).then(function (response) {
             context.commit('loadProject', response.data);
         });
     },
     create: function create(context, payload) {
+        context.commit('isFetching');
         (0, _axios2.default)({
             method: 'post',
             url: '/projects',
@@ -30328,12 +30331,32 @@ exports.default = {
             console.log(res);
         });
     },
-    saveProjectData: function saveProjectData(state, payload, aa) {
+    saveProjectSettings: function saveProjectSettings(context, payload) {
+        context.commit('isFetching');
+        (0, _axios2.default)({
+            method: 'post',
+            url: '/projects/' + payload.id + '/settings',
+            data: {
+                name: payload.name,
+                settings: payload.settings
+            }
+        }).then(function (response) {
+            context.commit('fetchingIsDone');
+            console.log(response);
+        }).catch(function (res) {
+            console.log(res);
+        });
+    },
+    saveProjectData: function saveProjectData(context, payload) {
+        context.commit('isFetching');
         (0, _axios2.default)({
             method: 'post',
             url: '/projects/' + payload.id,
-            data: payload.formData
+            data: {
+                data: payload.formData
+            }
         }).then(function (response) {
+            context.commit('fetchingIsDone');
             console.log(response);
         }).catch(function (res) {
             console.log(res);
@@ -30356,6 +30379,9 @@ exports.default = {
             return state.project;
         }
         return false;
+    },
+    isFetching: function isFetching(state) {
+        return state.isFetching;
     }
 };
 
@@ -30365,10 +30391,6 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _state = require('./state');
-
-var _state2 = _interopRequireDefault(_state);
 
 var _mutations = require('./mutations');
 
@@ -30386,7 +30408,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var projects = {
     namespaced: true,
-    state: _state2.default,
+    state: {
+        projects: [],
+        project: false,
+        isFetching: false
+    },
     mutations: _mutations2.default,
     getters: _getters2.default,
     actions: _actions2.default
@@ -30394,7 +30420,7 @@ var projects = {
 
 exports.default = projects;
 
-},{"./actions":45,"./getters":46,"./mutations":48,"./state":49}],48:[function(require,module,exports){
+},{"./actions":45,"./getters":46,"./mutations":48}],48:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30403,26 +30429,21 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     load: function load(state, payload) {
         state.projects = payload;
+        state.isFetching = false;
     },
     loadProject: function loadProject(state, payload) {
         state.project = payload;
+        state.isFetching = false;
+    },
+    isFetching: function isFetching(state) {
+        state.isFetching = true;
+    },
+    fetchingIsDone: function fetchingIsDone(state) {
+        state.isFetching = false;
     }
 };
 
 },{}],49:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = {
-    projects: [{
-        demo: 'tralala'
-    }],
-    project: false
-};
-
-},{}],50:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30478,7 +30499,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30}],51:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30}],50:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30493,7 +30514,39 @@ exports.default = {
     data: function data() {
         return {
             id: this.$route.params.id,
-            search: this.$route.params.filter || ''
+            search: this.$route.params.filter || '',
+            tab: 'variables',
+            device: false,
+            deviceRotation: false,
+            devices: [{
+                key: 'default',
+                name: 'Default'
+            }, {
+                key: 'iphone5',
+                name: 'iPhone 5',
+                width: '320px',
+                height: '568px'
+            }, {
+                key: 'iphone7',
+                name: 'iPhone 7',
+                width: '375px',
+                height: '667px'
+            }, {
+                key: 'iphone7plus',
+                name: 'iPhone 7 plus',
+                width: '414px',
+                height: '736px'
+            }, {
+                key: 'ipad',
+                name: 'iPad',
+                width: '768px',
+                height: '1024px'
+            }, {
+                key: 'ipadpro',
+                name: 'iPad pro',
+                width: '1024px',
+                height: '1366px'
+            }]
         };
     },
 
@@ -30505,8 +30558,33 @@ exports.default = {
                 return item.name.indexOf(_this.search) > -1 || item.value.indexOf(_this.search) > -1;
             });
         },
+        isFetching: function isFetching() {
+            return this.$store.getters['projects/isFetching'];
+        },
         project: function project() {
             return this.$store.getters['projects/getProject'];
+        },
+        deviceName: function deviceName() {
+            if (this.device) {
+                return this.device.name;
+            }
+            return 'Default';
+        },
+        iframeStyles: function iframeStyles() {
+            if (this.device.hasOwnProperty('width') && this.device.hasOwnProperty('height')) {
+                if (this.deviceRotation) {
+                    return {
+                        width: this.device.height,
+                        height: this.device.width
+                    };
+                }
+
+                return {
+                    width: this.device.width,
+                    height: this.device.height
+                };
+            }
+            return {};
         }
     },
     mounted: function mounted() {
@@ -30514,6 +30592,30 @@ exports.default = {
     },
 
     methods: {
+        setTab: function setTab(tab) {
+            this.tab = tab;
+        },
+        activeTab: function activeTab(tab) {
+            return this.tab === tab;
+        },
+        setDevice: function setDevice(device) {
+            this.device = device;
+            this.setProjectSetting('device', device.key);
+            this.saveProjectSettings();
+        },
+        rotate: function rotate() {
+            this.deviceRotation = !this.deviceRotation;
+            this.setProjectSetting('deviceRotation', this.deviceRotation);
+            this.saveProjectSettings();
+        },
+        setProjectSetting: function setProjectSetting(setting, value) {
+            var project = this.project.project;
+
+            if (!project.settings) {
+                project.settings = {};
+            }
+            project.settings[setting] = value;
+        },
         reloadFrames: function reloadFrames() {
             if (!this.$el) {
                 return;
@@ -30522,6 +30624,11 @@ exports.default = {
             iframes.forEach(function (iframe) {
                 iframe.contentWindow.location.reload();
             });
+        },
+        saveProjectSettings: function saveProjectSettings() {
+            var project = this.project.project;
+
+            this.$store.dispatch('projects/saveProjectSettings', { id: project.uuid, name: project.name, settings: project.settings });
         },
         saveGroupData: function saveGroupData() {
             var _project = this.project,
@@ -30537,7 +30644,6 @@ exports.default = {
                 formData[varData[i].name] = varData[i].value;
             }
             this.$store.dispatch('projects/saveProjectData', { id: project.uuid, formData: formData });
-            setTimeout(this.reloadFrames, 1000);
         }
     },
     watch: {
@@ -30555,6 +30661,43 @@ exports.default = {
             }
             this.$router.push(route);
         },
+        isFetching: function isFetching(value) {
+            if (!value) {
+                this.reloadFrames();
+            }
+        },
+        project: function project(_project2) {
+            var _this2 = this;
+
+            if (false === _project2.hasOwnProperty('project') || false === _project2.project.hasOwnProperty('settings')) {
+                return;
+            }
+            var settings = _project2.project.settings;
+
+            var _loop = function _loop(key) {
+                if (!settings.hasOwnProperty(key)) {
+                    return 'continue';
+                }
+
+                if (key === 'device') {
+                    var device = _this2.devices.find(function (d) {
+                        return d.key === settings[key];
+                    });
+                    _this2.setDevice(device);
+                }
+                if (key === 'deviceRotation') {
+                    if (_this2.deviceRotation !== settings[key]) {
+                        _this2.rotate();
+                    }
+                }
+            };
+
+            for (var key in settings) {
+                var _ret = _loop(key);
+
+                if (_ret === 'continue') continue;
+            }
+        },
         '$route': function $route(to, from) {
             this.id = to.params.id;
         }
@@ -30569,7 +30712,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white"},[_c('div',{staticClass:"btn-group py-2 float-right"},[_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.reloadFrames();}}},[_c('i',{staticClass:"fa fa-recycle"})])]),_vm._v(" "),_c('h1',[_vm._v("\n                    "+_vm._s(_vm.project.project.name)+"\n                ")]),_vm._v(" "),_c('div',{staticClass:"embed-responsive embed-responsive-16by9"},[_c('iframe',{staticClass:"embed-responsive-item",attrs:{"src":'/projects/' + _vm.project.project.uuid + '/home',"frameborder":"0"}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"search","placeholder":"Filter..."},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-search"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":""}},[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_vm._v("\n                            save\n                        ")])])],2)])])]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white projects-data"},[_c('div',{staticClass:"btn-group py-2 float-right"},[_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#","title":"Reload frame"},on:{"click":function($event){$event.preventDefault();_vm.reloadFrames();}}},[_c('i',{staticClass:"fa fa-fw fa-recycle"})]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#","title":"Reload frame"},on:{"click":function($event){$event.preventDefault();_vm.rotate();}}},[_c('i',{staticClass:"fa fa-fw",class:{'fa-undo': _vm.deviceRotation, 'fa-repeat': !_vm.deviceRotation}})]),_vm._v(" "),_c('button',{staticClass:"btn btn-outline-info dropdown-toggle dropdown-toggle-split",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n                        "+_vm._s(_vm.deviceName)+"\n                    ")]),_vm._v(" "),_c('div',{staticClass:"dropdown-menu dropdown-menu-right"},_vm._l((_vm.devices),function(device){return _c('a',{staticClass:"dropdown-item",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setDevice(device)}}},[_vm._v("\n                            "+_vm._s(device.name)+"\n                        ")])}))]),_vm._v(" "),_c('h1',[_vm._v("\n                    "+_vm._s(_vm.project.project.name)+"\n                ")]),_vm._v(" "),(false)?_c('div',_vm._l((_vm.project.varData),function(item){return _c('div',[_vm._v("\n                        "+_vm._s(item.name)+": "+_vm._s(item.value)+"; "+_vm._s(item.altered ? '// altered' : '')+"\n                    ")])})):_vm._e(),_vm._v(" "),_c('div',{staticClass:"iframe"},[_c('div',{staticClass:"iframe-container",style:(_vm.iframeStyles)},[_c('iframe',{style:(_vm.iframeStyles),attrs:{"src":'/projects/' + _vm.project.project.uuid + '/home',"frameborder":"0"}})],1)])]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{staticClass:"btn-group"},[_c('a',{staticClass:"btn btn-outline-info disabled",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('variables')}}},[_c('i',{staticClass:"fa fa-fw",class:{'fa-check' : !_vm.isFetching, 'fa-spinner fa-spin': _vm.isFetching}})]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info",class:{'active' : _vm.activeTab('variables')},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('variables')}}},[_vm._v("\n                        Variables\n                    ")]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info btn-block",class:{'active' : _vm.activeTab('settings')},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('settings')}}},[_vm._v("\n                        Settings\n                    ")])]),_vm._v(" "),_c('hr'),_vm._v(" "),(_vm.activeTab('settings'))?_c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"project-name"}},[_vm._v("Project name")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.project.project.name),expression:"project.project.name"}],staticClass:"form-control",attrs:{"type":"text","id":"project-name"},domProps:{"value":(_vm.project.project.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.project.project.name=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveProjectSettings()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])])]):_vm._e(),_vm._v(" "),(_vm.activeTab('variables'))?_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"filter"}},[_vm._v("Filter")]),_vm._v(" "),_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"search","placeholder":"Filter...","id":"filter"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-search"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])])],2):_vm._e()])])]):_vm._e()])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30582,7 +30725,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],52:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],51:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30624,7 +30767,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],53:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30655,7 +30798,7 @@ var store = new _vuex2.default.Store({
 
 exports.default = store;
 
-},{"./../modules/projects/store":47,"vue":32,"vuex":33}],54:[function(require,module,exports){
+},{"./../modules/projects/store":47,"vue":32,"vuex":33}],53:[function(require,module,exports){
 ;(function(){
 'use strict';
 

@@ -3,4 +3,20 @@
     height: calc(100vh - 56px);
     overflow: auto;
   }
+  .iframe {
+    overflow: auto;
+    display: block;
+    height: calc(100vh - 120px);
+    clear: both;
+
+    .iframe-container {
+      margin: 0 auto;
+      height: 99%;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
 }

@@ -70,6 +70,32 @@ router.get('/:uuid/:page', (req, res) => {
     });
 });
 
+router.post('/:uuid/settings', (req, res) => {
+    let projects = req.database.getCollection('projects');
+    let project  = projects.findOne({uuid: req.params.uuid});
+    if (!project) {
+        res.status(404).send();
+    }
+    if (req.body.name) {
+        project.name = req.body.name;
+    }
+    if (req.body.settings instanceof Object) {
+        let settings = {};
+        for (let key in req.body.settings) {
+            if (!req.body.settings.hasOwnProperty(key)) {
+                continue;
+            }
+            settings[key] = req.body.settings[key];
+        }
+        project.settings = settings;
+    }
+    projects.update(project);
+    res.send({
+        message: 'success',
+        project,
+    });
+});
+
 router.post('/:uuid', (req, res) => {
     let projects = req.database.getCollection('projects');
     let project  = projects.findOne({uuid: req.params.uuid});
@@ -81,12 +107,12 @@ router.post('/:uuid', (req, res) => {
     parseData.parseFile().then((varData) => {
         let changed = [];
         for (varItem of varData) {
-            let posted = req.body[varItem.name];
+            let posted = req.body.data[varItem.name];
             if (posted) {
                 changed.push(varItem.name + ': ' + posted);
             }
         }
-        
+
         const content   = project.content;
         project.content = changed.join(';\n') + ';';
         projectData.render(req.dataDir, req.publicDir, project)

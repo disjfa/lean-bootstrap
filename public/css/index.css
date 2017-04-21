@@ -8320,3 +8320,15 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 .projects .projects-data {
   height: calc(100vh - 56px);
   overflow: auto; }
+
+.projects .iframe {
+  overflow: auto;
+  display: block;
+  height: calc(100vh - 120px);
+  clear: both; }
+  .projects .iframe .iframe-container {
+    margin: 0 auto;
+    height: 99%; }
+    .projects .iframe .iframe-container iframe {
+      width: 100%;
+      height: 100%; }
