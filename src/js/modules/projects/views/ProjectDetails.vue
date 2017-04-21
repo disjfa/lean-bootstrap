@@ -8,7 +8,7 @@
                             <i class="fa fa-fw fa-recycle"></i>
                         </a>
                         <a href="#" @click.prevent="rotate();" class="btn btn-outline-info" title="Reload frame">
-                            <i class="fa fa-fw" :class="{'fa-undo': deviceRotation, 'fa-repeat': !deviceRotation}"></i>
+                            <i class="fa fa-fw fa-tablet" :class="{'fa-rotate-90': deviceRotation}"></i>
                         </a>
                         <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{deviceName}}

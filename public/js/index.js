@@ -30239,6 +30239,10 @@ var _ProjectCreate = require('./modules/projects/views/ProjectCreate.vue');
 
 var _ProjectCreate2 = _interopRequireDefault(_ProjectCreate);
 
+var _Home = require('./modules/pages/views/Home.vue');
+
+var _Home2 = _interopRequireDefault(_Home);
+
 var _store = require('./store');
 
 var _store2 = _interopRequireDefault(_store);
@@ -30258,6 +30262,12 @@ window.Tether = Tether;
 require('bootstrap/dist/js/bootstrap.js');
 
 var routes = [{
+    path: '/home',
+    component: _Home2.default,
+    label: 'Home',
+    name: 'home',
+    menu: true
+}, {
     path: '/projects',
     component: _Projects2.default,
     label: 'Projects',
@@ -30275,7 +30285,7 @@ var routes = [{
     name: 'project-details'
 }, {
     path: '*',
-    redirect: 'projects'
+    redirect: 'home'
 }];
 
 var router = new _vueRouter2.default({
@@ -30293,7 +30303,34 @@ new _vue2.default({
     }
 }).$mount('#base');
 
-},{"./components/plugin":43,"./modules/projects/views/ProjectCreate.vue":49,"./modules/projects/views/ProjectDetails.vue":50,"./modules/projects/views/Projects.vue":51,"./store":52,"./views/app.vue":53,"bootstrap/dist/js/bootstrap.js":26,"jquery":27,"tether":29,"vue":32,"vue-router":31}],45:[function(require,module,exports){
+},{"./components/plugin":43,"./modules/pages/views/Home.vue":45,"./modules/projects/views/ProjectCreate.vue":50,"./modules/projects/views/ProjectDetails.vue":51,"./modules/projects/views/Projects.vue":52,"./store":53,"./views/app.vue":54,"bootstrap/dist/js/bootstrap.js":26,"jquery":27,"tether":29,"vue":32,"vue-router":31}],45:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: 'app'
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"py-3"},[_c('div',{staticClass:"jumbotron bg-primary text-white"},[_c('h1',[_vm._v("Hi, and welcome")]),_vm._v(" "),_c('p',[_vm._v("\n            This is the bootstrap playground, you can play, text and just do anything.\n        ")]),_vm._v(" "),_c('p',[_vm._v("\n            It can be that the server breaks. So be it.\n        ")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-secondary",attrs:{"to":{name: 'project-create'}}},[_vm._v("\n            Create a project and go "),_c('i',{staticClass:"fa fa-arrow-right"})])],1)])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1141140d", __vue__options__)
+  } else {
+    hotAPI.rerender("data-v-1141140d", __vue__options__)
+  }
+})()}
+
+},{"vue":32,"vue-hot-reload-api":30}],46:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30364,7 +30401,7 @@ exports.default = {
     }
 };
 
-},{"axios":1}],46:[function(require,module,exports){
+},{"axios":1}],47:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30385,7 +30422,7 @@ exports.default = {
     }
 };
 
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30420,7 +30457,7 @@ var projects = {
 
 exports.default = projects;
 
-},{"./actions":45,"./getters":46,"./mutations":48}],48:[function(require,module,exports){
+},{"./actions":46,"./getters":47,"./mutations":49}],49:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30443,7 +30480,7 @@ exports.default = {
     }
 };
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30499,7 +30536,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30}],50:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30}],51:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30712,7 +30749,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white projects-data"},[_c('div',{staticClass:"btn-group py-2 float-right"},[_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#","title":"Reload frame"},on:{"click":function($event){$event.preventDefault();_vm.reloadFrames();}}},[_c('i',{staticClass:"fa fa-fw fa-recycle"})]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#","title":"Reload frame"},on:{"click":function($event){$event.preventDefault();_vm.rotate();}}},[_c('i',{staticClass:"fa fa-fw",class:{'fa-undo': _vm.deviceRotation, 'fa-repeat': !_vm.deviceRotation}})]),_vm._v(" "),_c('button',{staticClass:"btn btn-outline-info dropdown-toggle dropdown-toggle-split",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n                        "+_vm._s(_vm.deviceName)+"\n                    ")]),_vm._v(" "),_c('div',{staticClass:"dropdown-menu dropdown-menu-right"},_vm._l((_vm.devices),function(device){return _c('a',{staticClass:"dropdown-item",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setDevice(device)}}},[_vm._v("\n                            "+_vm._s(device.name)+"\n                        ")])}))]),_vm._v(" "),_c('h1',[_vm._v("\n                    "+_vm._s(_vm.project.project.name)+"\n                ")]),_vm._v(" "),(false)?_c('div',_vm._l((_vm.project.varData),function(item){return _c('div',[_vm._v("\n                        "+_vm._s(item.name)+": "+_vm._s(item.value)+"; "+_vm._s(item.altered ? '// altered' : '')+"\n                    ")])})):_vm._e(),_vm._v(" "),_c('div',{staticClass:"iframe"},[_c('div',{staticClass:"iframe-container",style:(_vm.iframeStyles)},[_c('iframe',{style:(_vm.iframeStyles),attrs:{"src":'/projects/' + _vm.project.project.uuid + '/home',"frameborder":"0"}})],1)])]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{staticClass:"btn-group"},[_c('a',{staticClass:"btn btn-outline-info disabled",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('variables')}}},[_c('i',{staticClass:"fa fa-fw",class:{'fa-check' : !_vm.isFetching, 'fa-spinner fa-spin': _vm.isFetching}})]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info",class:{'active' : _vm.activeTab('variables')},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('variables')}}},[_vm._v("\n                        Variables\n                    ")]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info btn-block",class:{'active' : _vm.activeTab('settings')},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('settings')}}},[_vm._v("\n                        Settings\n                    ")])]),_vm._v(" "),_c('hr'),_vm._v(" "),(_vm.activeTab('settings'))?_c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"project-name"}},[_vm._v("Project name")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.project.project.name),expression:"project.project.name"}],staticClass:"form-control",attrs:{"type":"text","id":"project-name"},domProps:{"value":(_vm.project.project.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.project.project.name=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveProjectSettings()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])])]):_vm._e(),_vm._v(" "),(_vm.activeTab('variables'))?_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"filter"}},[_vm._v("Filter")]),_vm._v(" "),_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"search","placeholder":"Filter...","id":"filter"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-search"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])])],2):_vm._e()])])]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"projects",attrs:{"fluid":""}},[(_vm.project)?_c('div',[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-9 bg-inverse text-white projects-data"},[_c('div',{staticClass:"btn-group py-2 float-right"},[_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#","title":"Reload frame"},on:{"click":function($event){$event.preventDefault();_vm.reloadFrames();}}},[_c('i',{staticClass:"fa fa-fw fa-recycle"})]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info",attrs:{"href":"#","title":"Reload frame"},on:{"click":function($event){$event.preventDefault();_vm.rotate();}}},[_c('i',{staticClass:"fa fa-fw fa-tablet",class:{'fa-rotate-90': _vm.deviceRotation}})]),_vm._v(" "),_c('button',{staticClass:"btn btn-outline-info dropdown-toggle dropdown-toggle-split",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n                        "+_vm._s(_vm.deviceName)+"\n                    ")]),_vm._v(" "),_c('div',{staticClass:"dropdown-menu dropdown-menu-right"},_vm._l((_vm.devices),function(device){return _c('a',{staticClass:"dropdown-item",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setDevice(device)}}},[_vm._v("\n                            "+_vm._s(device.name)+"\n                        ")])}))]),_vm._v(" "),_c('h1',[_vm._v("\n                    "+_vm._s(_vm.project.project.name)+"\n                ")]),_vm._v(" "),(false)?_c('div',_vm._l((_vm.project.varData),function(item){return _c('div',[_vm._v("\n                        "+_vm._s(item.name)+": "+_vm._s(item.value)+"; "+_vm._s(item.altered ? '// altered' : '')+"\n                    ")])})):_vm._e(),_vm._v(" "),_c('div',{staticClass:"iframe"},[_c('div',{staticClass:"iframe-container",style:(_vm.iframeStyles)},[_c('iframe',{style:(_vm.iframeStyles),attrs:{"src":'/projects/' + _vm.project.project.uuid + '/home',"frameborder":"0"}})],1)])]),_vm._v(" "),_c('div',{staticClass:"col-3 projects-data bg-faded py-3"},[_c('div',{staticClass:"btn-group"},[_c('a',{staticClass:"btn btn-outline-info disabled",attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('variables')}}},[_c('i',{staticClass:"fa fa-fw",class:{'fa-check' : !_vm.isFetching, 'fa-spinner fa-spin': _vm.isFetching}})]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info",class:{'active' : _vm.activeTab('variables')},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('variables')}}},[_vm._v("\n                        Variables\n                    ")]),_vm._v(" "),_c('a',{staticClass:"btn btn-outline-info btn-block",class:{'active' : _vm.activeTab('settings')},attrs:{"href":"#"},on:{"click":function($event){$event.preventDefault();_vm.setTab('settings')}}},[_vm._v("\n                        Settings\n                    ")])]),_vm._v(" "),_c('hr'),_vm._v(" "),(_vm.activeTab('settings'))?_c('div',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"project-name"}},[_vm._v("Project name")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.project.project.name),expression:"project.project.name"}],staticClass:"form-control",attrs:{"type":"text","id":"project-name"},domProps:{"value":(_vm.project.project.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.project.project.name=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveProjectSettings()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])])]):_vm._e(),_vm._v(" "),(_vm.activeTab('variables'))?_c('div',{attrs:{"id":"groupData"}},[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"filter"}},[_vm._v("Filter")]),_vm._v(" "),_c('div',{staticClass:"input-group"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"search","placeholder":"Filter...","id":"filter"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}}),_vm._v(" "),_c('div',{staticClass:"input-group-addon"},[_c('i',{staticClass:"fa fa-search"})])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])]),_vm._v(" "),_vm._l((_vm.varData),function(item){return _c('div',[_c('div',{staticClass:"form-group"},[_c('label',[_vm._v(_vm._s(item.name))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(item.value),expression:"item.value"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(item.value)},on:{"input":function($event){if($event.target.composing){ return; }item.value=$event.target.value}}})])])}),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('button',{staticClass:"btn btn-primary",on:{"click":function($event){_vm.saveGroupData()}}},[_c('i',{staticClass:"fa fa-floppy-o"}),_vm._v("\n                            save\n                        ")])])],2):_vm._e()])])]):_vm._e()])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30725,7 +30762,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],51:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],52:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30767,7 +30804,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 
-},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],52:[function(require,module,exports){
+},{"vue":32,"vue-hot-reload-api":30,"vuex":33}],53:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -30798,7 +30835,7 @@ var store = new _vuex2.default.Store({
 
 exports.default = store;
 
-},{"./../modules/projects/store":47,"vue":32,"vuex":33}],53:[function(require,module,exports){
+},{"./../modules/projects/store":48,"vue":32,"vuex":33}],54:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -30835,7 +30872,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('navbar',{attrs:{"items":_vm.routes}}),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('navbar',{attrs:{"items":_vm.routes}},[_c('a',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._v("Bootstrap playground")])]),_vm._v(" "),_c('router-view')],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <navbar :items="routes">
-
+            <a class="navbar-brand" href="#">Bootstrap playground</a>
         </navbar>
         <router-view></router-view>
     </div>

@@ -12,9 +12,16 @@ import App from './views/app.vue';
 import Projects from './modules/projects/views/Projects.vue';
 import ProjectDetails from './modules/projects/views/ProjectDetails.vue';
 import ProjectCreate from './modules/projects/views/ProjectCreate.vue';
+import Home from './modules/pages/views/Home.vue';
 import store from './store';
 
 const routes = [{
+    path: '/home',
+    component: Home,
+    label: 'Home',
+    name: 'home',
+    menu: true,
+}, {
     path: '/projects',
     component: Projects,
     label: 'Projects',
@@ -32,7 +39,7 @@ const routes = [{
     name: 'project-details',
 }, {
     path: '*',
-    redirect: 'projects',
+    redirect: 'home',
 },];
 
 const router = new VueRouter({
