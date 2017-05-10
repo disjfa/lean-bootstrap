@@ -21,6 +21,7 @@ let app      = express();
 
 //settings
 app.set('port', process.env.PORT || 3000);
+app.set('host', process.env.HOST || 'localhost');
 app.set('views', path.join(__dirname, 'views'));
 
 //view engine & main template
@@ -54,4 +55,4 @@ app.use((req, res, next) => {
 routes.create(app);
 
 //server
-app.listen(app.get('port'), '0.0.0.0', () => console.log('Listening on http://0.0.0.0:' + app.get('port')));
+app.listen(app.get('port'), app.get('host'), () => console.log('Listening on http://' + app.get('host') + ':' + app.get('port')));
