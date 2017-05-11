@@ -1,6 +1,6 @@
 function create(app) {
-    app.use('/', require('./routes/vue'));
-    app.use('/projects', require('./routes/projects'));
+    app.use('/', require('./vue'));
+    app.use('/projects', require('./projects'));
 
     app.use((req, res, next) => {
         res.status(404);

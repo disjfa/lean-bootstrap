@@ -1,9 +1,9 @@
 {
-  "name": "LEAN",
+  "name": "Bootstrap playground",
   "version": "1.0.0",
   "scripts": {
-    "dev": "HOST=0.0.0.0 nodemon ./server.js -- --host=0.0.0.0",
-    "start": "node ./server.js"
+    "dev": "HOST=0.0.0.0 NODE_ENV=development gulp",
+    "start": "NODE_ENV=production node ./server.js"
   },
   "engines": {
     "node": "6.10.2"

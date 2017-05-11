@@ -30102,7 +30102,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _container = require('../container/container.vue');
@@ -30116,31 +30116,31 @@ var _navbarNav2 = _interopRequireDefault(_navbarNav);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    components: {
-        container: _container2.default,
-        navbarNav: _navbarNav2.default
-    },
-    props: {
-        inverse: Boolean,
-        items: Array
-    },
-    computed: {
-        classes: function classes() {
-            return {
-                'navbar-inverse': this.inverse,
-                'bg-inverse': this.inverse,
-                'navbar-light': !this.inverse,
-                'bg-faded': !this.inverse
-            };
-        }
+  components: {
+    container: _container2.default,
+    navbarNav: _navbarNav2.default
+  },
+  props: {
+    inverse: Boolean,
+    items: Array
+  },
+  computed: {
+    classes: function classes() {
+      return {
+        'navbar-inverse': this.inverse,
+        'bg-inverse': this.inverse,
+        'navbar-light': !this.inverse,
+        'bg-faded': !this.inverse
+      };
     }
+  }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{staticClass:"navbar navbar-toggleable-md",class:_vm.classes},[_vm._t("default"),_vm._v(" "),_c('navbarNav',{attrs:{"items":_vm.items}})],2)}
-__vue__options__.staticRenderFns = []
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{staticClass:"navbar navbar-toggleable-md",class:_vm.classes},[_vm._m(0),_vm._v(" "),_vm._t("default"),_vm._v(" "),_c('div',{staticClass:"collapse navbar-collapse",attrs:{"id":"navbar-main"}},[_c('navbarNav',{attrs:{"items":_vm.items}})],1)],2)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{staticClass:"navbar-toggler navbar-toggler-right",attrs:{"type":"button","data-toggle":"collapse","data-target":"#navbar-main","aria-controls":"navbar-main","aria-expanded":"false","aria-label":"Toggle navigation"}},[_c('span',{staticClass:"navbar-toggler-icon"})])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -30326,7 +30326,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-1141140d", __vue__options__)
   } else {
-    hotAPI.rerender("data-v-1141140d", __vue__options__)
+    hotAPI.reload("data-v-1141140d", __vue__options__)
   }
 })()}
 
@@ -30758,7 +30758,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-2eb48ccd", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2eb48ccd", __vue__options__)
+    hotAPI.rerender("data-v-2eb48ccd", __vue__options__)
   }
 })()}
 
@@ -30872,7 +30872,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('navbar',{attrs:{"items":_vm.routes}},[_c('a',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_vm._v("Bootstrap playground")])]),_vm._v(" "),_c('router-view')],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"app"}},[_c('navbar',{attrs:{"items":_vm.routes}},[_c('a',{staticClass:"navbar-brand",attrs:{"href":"#"}},[_c('img',{staticClass:"d-inline-block rounded",attrs:{"src":"/icons/apple-touch-icon.png","alt":""}}),_vm._v("\n            Bootstrap playground\n        ")])]),_vm._v(" "),_c('router-view')],1)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -30881,7 +30881,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-7f819b96", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7f819b96", __vue__options__)
+    hotAPI.rerender("data-v-7f819b96", __vue__options__)
   }
 })()}
 

@@ -1,7 +1,10 @@
 <template>
     <div id="app">
         <navbar :items="routes">
-            <a class="navbar-brand" href="#">Bootstrap playground</a>
+            <a class="navbar-brand" href="#">
+                <img src="/icons/apple-touch-icon.png" alt="" class="d-inline-block rounded">
+                Bootstrap playground
+            </a>
         </navbar>
         <router-view></router-view>
     </div>
