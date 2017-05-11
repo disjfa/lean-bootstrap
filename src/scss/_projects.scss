@@ -1,7 +1,55 @@
 .projects {
-  .projects-data {
-    height: calc(100vh - 56px);
+  .projects-settings {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: $spacer;
     overflow: auto;
+    background: rgba(0, 0, 0, .8);
+    .project-settings-data {
+      display: none;
+    }
+    .projects-settings-close {
+      display: none;
+    }
+    &.opened {
+      top: 0;
+      .project-settings-data {
+        display: block;
+      }
+      .projects-settings-close {
+        display: block;
+      }
+    }
+  }
+  @include media-breakpoint-up(md) {
+    display: flex;
+
+    .projects-data {
+      flex: 1;
+      height: calc(100vh - 56px);
+      overflow: auto;
+      padding: 0 $spacer;
+    }
+    .projects-settings {
+      background: $gray-lightest;
+      display: block;
+      position: relative;
+      width: 300px;
+      height: calc(100vh - 56px);
+      .project-settings-data {
+        display: block;
+      }
+      .projects-settings-close {
+        display: none;
+      }
+      &.opened {
+        .projects-settings-close {
+          display: none;
+        }
+      }
+    }
   }
   .iframe {
     overflow: auto;

@@ -8317,9 +8317,45 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   overflow: visible;
   clip: auto; }
 
-.projects .projects-data {
-  height: calc(100vh - 56px);
-  overflow: auto; }
+.projects .projects-settings {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.8); }
+  .projects .projects-settings .project-settings-data {
+    display: none; }
+  .projects .projects-settings .projects-settings-close {
+    display: none; }
+  .projects .projects-settings.opened {
+    top: 0; }
+    .projects .projects-settings.opened .project-settings-data {
+      display: block; }
+    .projects .projects-settings.opened .projects-settings-close {
+      display: block; }
+
+@media (min-width: 768px) {
+  .projects {
+    display: flex; }
+    .projects .projects-data {
+      flex: 1;
+      height: calc(100vh - 56px);
+      overflow: auto;
+      padding: 0 1rem; }
+    .projects .projects-settings {
+      background: #f7f7f9;
+      display: block;
+      position: relative;
+      width: 300px;
+      height: calc(100vh - 56px); }
+      .projects .projects-settings .project-settings-data {
+        display: block; }
+      .projects .projects-settings .projects-settings-close {
+        display: none; }
+      .projects .projects-settings.opened .projects-settings-close {
+        display: none; } }
 
 .projects .iframe {
   overflow: auto;
