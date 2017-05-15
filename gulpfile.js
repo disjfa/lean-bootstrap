@@ -21,6 +21,10 @@ gulp.task('default', ['copy', 'browser-sync', 'watchify'], function () {
   gulp.watch('src/scss/**/*.scss', ['styles'])
 })
 
+gulp.task('build', ['styles', 'watchify'], function () {
+  gulp.watch('src/scss/**/*.scss', ['styles'])
+})
+
 gulp.task('styles', function () {
   gulp.src('src/scss/index.scss')
     .pipe(sass({

@@ -5,6 +5,9 @@
                 <a href="#" @click.prevent="reloadFrames();" class="btn btn-outline-info" title="Reload frame">
                     <i class="fa fa-fw fa-recycle"></i>
                 </a>
+                <a href="#" @click.prevent="toggleCode();" class="btn btn-outline-info" title="Toggle code/website">
+                    <i class="fa fa-fw fa-code"></i>
+                </a>
                 <a href="#" @click.prevent="rotate();" class="btn btn-outline-info" title="Reload frame">
                     <i class="fa fa-fw fa-tablet" :class="{'fa-rotate-90': deviceRotation}"></i>
                 </a>
@@ -20,14 +23,14 @@
             <h1>
                 {{project.project.name}}
             </h1>
-            <div v-if="false">
-                <div v-for="item in project.varData">
-                    {{item.name}}: {{item.value}}; {{item.altered ? '// altered' : ''}}
+            <div>
+                <div v-if="showCode">
+                    <pre v-highlightjs="sourceCode"><code class="scss"></code></pre>
                 </div>
-            </div>
-            <div class="iframe">
-                <div class="iframe-container" :style="iframeStyles">
-                    <iframe :src="'/projects/' + project.project.uuid + '/home'" frameborder="0" :style="iframeStyles"></iframe>
+                <div class="iframe" v-else>
+                    <div class="iframe-container" :style="iframeStyles">
+                        <iframe :src="'/projects/' + project.project.uuid + '/home'" frameborder="0" :style="iframeStyles"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,10 +80,7 @@
                         </button>
                     </div>
                     <div v-for="item in varData">
-                        <div class="form-group">
-                            <label>{{item.name}}</label>
-                            <input type="text" v-model="item.value" class="form-control">
-                        </div>
+                        <item-input :item="item"></item-input>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" @click="saveGroupData()">
@@ -97,9 +97,13 @@
 <script type="text/babel">
   import { mapGetters } from 'vuex';
   import Vue from 'vue';
+  import ItemInput from './../components/ItemInput.vue';
 
   export default {
     name: 'app',
+    components: {
+      ItemInput,
+    },
     data() {
       return {
         id: this.$route.params.id,
@@ -108,6 +112,7 @@
         device: false,
         deviceRotation: false,
         opened: false,
+        showCode: false,
         devices: [{
           key: 'default',
           name: 'Default',
@@ -145,6 +150,14 @@
           return item.name.indexOf(this.search) > -1 || item.value.indexOf(this.search) > -1;
         });
       },
+      sourceCode() {
+        const { varData } = this.project;
+        const source = [];
+        varData.map(item => {
+          source.push(item.name + ': ' + item.value + ';' + (item.altered ? ' // altered' : ''))
+        });
+        return(source.join('\n'));
+      },
       isFetching() {
         return this.$store.getters['projects/isFetching'];
       },
@@ -178,6 +191,9 @@
       this.$store.dispatch('projects/loadProject', this.$route.params.id);
     },
     methods: {
+      toggleCode() {
+        this.showCode = !this.showCode;
+      },
       setTab(tab) {
         this.tab = tab;
         Vue.set(this, 'opened', true);

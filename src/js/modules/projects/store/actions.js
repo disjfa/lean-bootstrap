@@ -40,7 +40,6 @@ export default {
         })
             .then(response => {
                 context.commit('fetchingIsDone');
-                console.log(response);
             })
             .catch(res => {
                 console.log(res);
@@ -57,7 +56,6 @@ export default {
         })
             .then(response => {
                 context.commit('fetchingIsDone');
-                console.log(response);
             })
             .catch(res => {
                 console.log(res);

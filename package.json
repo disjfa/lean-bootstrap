@@ -1,8 +1,9 @@
 {
-  "name": "Bootstrap playground",
+  "name": "bootstrap-playground",
   "version": "1.0.0",
   "scripts": {
     "dev": "HOST=0.0.0.0 NODE_ENV=development gulp",
+    "build": "HOST=0.0.0.0 NODE_ENV=production gulp build",
     "start": "NODE_ENV=production node ./server.js"
   },
   "engines": {
