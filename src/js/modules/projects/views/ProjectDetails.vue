@@ -249,7 +249,7 @@
     },
     watch: {
       search: function (value) {
-        this.search = value.replace(/[^a-z0-9\-\#\$\.\/\*\+\,\(\)\s]/i, '');
+        this.search = value.replace(/[^a-z0-9\-\#\$\.\/\*\+\,\(\)\s]/i, '').toLowerCase();
 
         const route = {
           name: 'project-details',
