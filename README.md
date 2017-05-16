@@ -26,7 +26,7 @@ MIT
 
 [version-badge]: https://img.shields.io/npm/v/lean-bootstrap.svg?style=flat-square
 [license]: https://github.com/disjfa/lean-bootstrap/blob/master/LICENSE
-[license-badge]: https://img.shields.io/npm/l/lean-bootstrap.svg?style=flat-square
+[license-badge]: https://img.shields.io/github/license/disjfa/lean-bootstrap.svg?style=flat-square
 [github-watch-badge]: https://img.shields.io/github/watchers/disjfa/lean-bootstrap.svg?style=social
 [github-watch]: https://github.com/disjfa/lean-bootstrap/watchers
 [github-star-badge]: https://img.shields.io/github/stars/disjfa/lean-bootstrap.svg?style=social
