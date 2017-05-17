@@ -9,6 +9,7 @@ let loki = require('lokijs')
 let fs = require('fs')
 let routes = require('./server/routes')
 let passport = require('passport')
+let uuid = require('uuid/v4')
 
 //setup
 let database = new loki('database.loki', {
@@ -17,11 +18,9 @@ let database = new loki('database.loki', {
 })
 if (!database.getCollection('projects')) {
   database.addCollection('projects')
-  database.saveDatabase();
 }
 if (!database.getCollection('users')) {
   database.addCollection('users')
-  database.saveDatabase();
 }
 let app = express()
 //settings
