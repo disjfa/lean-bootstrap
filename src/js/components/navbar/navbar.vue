@@ -4,11 +4,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <slot></slot>
-        <div class="collapse navbar-collapse" id="navbar-main">
-            <navbarNav :items="items">
+        <navbarNav :items="items" :user="user">
 
-            </navbarNav>
-        </div>
+        </navbarNav>
     </nav>
 </template>
 <script>
@@ -23,6 +21,7 @@
     props: {
       inverse: Boolean,
       items: Array,
+      user: Object,
     },
     computed: {
       classes() {

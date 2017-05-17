@@ -8,6 +8,7 @@ let bodyParser = require('body-parser')
 let loki = require('lokijs')
 let fs = require('fs')
 let routes = require('./server/routes')
+let passport = require('passport')
 
 //setup
 let database = new loki('database.loki', {
@@ -17,6 +18,9 @@ let database = new loki('database.loki', {
 if (!database.getCollection('projects')) {
   database.addCollection('projects')
 }
+if (!database.getCollection('users')) {
+  database.addCollection('users')
+}
 let app = express()
 //settings
 app.set('port', process.env.PORT || 3000)
@@ -25,6 +29,14 @@ app.set('env', process.env.NODE_ENV || 'development')
 app.set('views', path.join(__dirname, 'server/views'))
 app.set('dataDir', path.join(__dirname, 'data'))
 app.set('publicDir', path.join(__dirname, 'public/css/data'))
+let config
+if (false !== fs.existsSync('./config.json')) {
+  config = JSON.parse(fs.readFileSync('./config.json', 'utf8'))
+} else {
+  config = {}
+}
+app.set('auth', config.auth || {})
+app.set('database', database)
 
 //view engine & main template
 app.engine('.hbs', expressHbs({
@@ -32,13 +44,52 @@ app.engine('.hbs', expressHbs({
   extname: '.hbs',
   layoutsDir: 'server/views/layouts/',
   partialsDir: 'server/views/partials/',
-}));
+}))
 app.set('view engine', '.hbs')
+
+const auth = app.get('auth')
+const { github } = auth
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+if (github && github.clientID && github.clientSecret) {
+  let GitHubStrategy = require('passport-github2');
+  passport.use(new GitHubStrategy({
+      clientID: github.clientID,
+      clientSecret: github.clientSecret,
+      callbackURL: 'http://192.168.33.99:3000/auth/github/callback'
+    },
+    function (accessToken, refreshToken, profile, done) {
+      let users = database.getCollection('users')
+      let user = users.findOne({ githubId: profile.id }) || users.insert({
+          uuid: uuid(),
+          githubId: profile.id,
+          displayName: profile.displayName,
+          username: profile.username,
+        })
+      return done(null, user)
+    }
+  ))
+}
 
 //middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(require('express-session')({
+  secret: '46a50826-3b44-11e7-a919-92ebcb67fe33',
+  resave: true,
+  saveUninitialized: true
+}))
+// use passport session
+app.use(passport.initialize())
+app.use(passport.session())
 app.use('/', express.static('public'))
 
 //loki db reference for the router

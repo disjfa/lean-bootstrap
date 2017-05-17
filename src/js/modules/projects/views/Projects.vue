@@ -12,8 +12,6 @@
                 {{project.name}}
             </router-link>
         </div>
-
-
     </container>
 </template>
 

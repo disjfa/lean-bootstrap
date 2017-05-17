@@ -11,6 +11,7 @@ import VueHighlightJS from 'vue-highlightjs'
 import VueRouter from 'vue-router'
 import App from './views/app.vue'
 import Projects from './modules/projects/views/Projects.vue'
+import MyProjects from './modules/projects/views/MyProjects.vue'
 import ProjectDetails from './modules/projects/views/ProjectDetails.vue'
 import ProjectCreate from './modules/projects/views/ProjectCreate.vue'
 import Home from './modules/pages/views/Home.vue'
@@ -27,6 +28,12 @@ const routes = [{
   component: Projects,
   label: 'Projects',
   name: 'projects',
+  menu: true,
+}, {
+  path: '/my-projects',
+  component: MyProjects,
+  label: 'My projects',
+  name: 'my-projects',
   menu: true,
 }, {
   path: '/projects/create',
