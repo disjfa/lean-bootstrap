@@ -17,9 +17,11 @@ let database = new loki('database.loki', {
 })
 if (!database.getCollection('projects')) {
   database.addCollection('projects')
+  database.saveDatabase();
 }
 if (!database.getCollection('users')) {
   database.addCollection('users')
+  database.saveDatabase();
 }
 let app = express()
 //settings
