@@ -63,7 +63,7 @@ if (github && github.clientID && github.clientSecret) {
   passport.use(new GitHubStrategy({
       clientID: github.clientID,
       clientSecret: github.clientSecret,
-      callbackURL: 'http://192.168.33.99:3000/auth/github/callback'
+      callbackURL: 'https://lean.dimme.nl/auth/github/callback'
     },
     function (accessToken, refreshToken, profile, done) {
       let users = database.getCollection('users')
