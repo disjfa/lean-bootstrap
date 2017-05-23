@@ -89,12 +89,19 @@ router.get('/:uuid/:page', (req, res) => {
 router.post('/:uuid/settings', (req, res) => {
   const projects = req.database.getCollection('projects');
   const project = projects.findOne({ uuid: req.params.uuid });
+  const { user } = req;
   if (!project) {
     res.status(404).send();
   }
+
+  if (project.userId && !user || user.uuid !== project.userId) {
+    return res.status(403).send();
+  }
+
   if (req.body.name) {
     project.name = req.body.name;
   }
+
   if (req.body.settings instanceof Object) {
     const settings = {};
     for (const key in req.body.settings) {
@@ -115,9 +122,14 @@ router.post('/:uuid/settings', (req, res) => {
 router.post('/:uuid', (req, res) => {
   const projects = req.database.getCollection('projects');
   const project = projects.findOne({ uuid: req.params.uuid });
+  const { user } = req;
 
   if (!project) {
-    res.status(404).send();
+    return res.status(404).send();
+  }
+
+  if (project.userId && !user || user.uuid !== project.userId) {
+    return res.status(403).send();
   }
 
   parseData.parseFile().then((varData) => {
