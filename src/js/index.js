@@ -1,21 +1,23 @@
-let jQuery = require('jquery')
-window.$ = window.jQuery = jQuery
+import Vue from 'vue';
+import VueHighlightJS from 'vue-highlightjs';
+import VueRouter from 'vue-router';
+import App from './views/app.vue';
+import Projects from './modules/projects/views/Projects.vue';
+import MyProjects from './modules/projects/views/MyProjects.vue';
+import ProjectDetails from './modules/projects/views/ProjectDetails.vue';
+import ProjectCreate from './modules/projects/views/ProjectCreate.vue';
+import Home from './modules/pages/views/Home.vue';
+import store from './store';
+import myComponents from './components/plugin';
 
-let Tether = require('tether')
-window.Tether = Tether
+const jQuery = require('jquery');
+const Tether = require('tether');
 
-require('bootstrap/dist/js/bootstrap.js')
+window.jQuery = jQuery;
+window.$ = jQuery;
+window.Tether = Tether;
 
-import Vue from 'vue'
-import VueHighlightJS from 'vue-highlightjs'
-import VueRouter from 'vue-router'
-import App from './views/app.vue'
-import Projects from './modules/projects/views/Projects.vue'
-import MyProjects from './modules/projects/views/MyProjects.vue'
-import ProjectDetails from './modules/projects/views/ProjectDetails.vue'
-import ProjectCreate from './modules/projects/views/ProjectCreate.vue'
-import Home from './modules/pages/views/Home.vue'
-import store from './store'
+require('bootstrap/dist/js/bootstrap.js');
 
 const routes = [{
   path: '/home',
@@ -48,20 +50,18 @@ const routes = [{
 }, {
   path: '*',
   redirect: 'home',
-},]
+}];
 
 const router = new VueRouter({
-  routes // short for routes: routes
-})
+  routes, // short for routes: routes
+});
 
-import myComponents from './components/plugin'
-
-Vue.use(VueRouter)
-Vue.use(VueHighlightJS)
-Vue.use(myComponents)
+Vue.use(VueRouter);
+Vue.use(VueHighlightJS);
+Vue.use(myComponents);
 
 new Vue({
   router,
   store,
   render: h => h(App),
-}).$mount('#base')
+}).$mount('#base');

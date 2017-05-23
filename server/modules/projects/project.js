@@ -1,86 +1,85 @@
-let fs   = require('fs');
-let sass = require('node-sass');
+const fs = require('fs');
+const sass = require('node-sass');
 
 function getProjectDir(dataDir, project) {
-    if (false === fs.existsSync(dataDir)) {
-        fs.mkdir(dataDir);
-    }
-    let projectDir = dataDir + '/' + project.uuid;
-    if (false === fs.existsSync(projectDir)) {
-        fs.mkdir(projectDir);
-    }
-    return projectDir;
+  if (fs.existsSync(dataDir) === false) {
+    fs.mkdir(dataDir);
+  }
+  const projectDir = `${dataDir}/${project.uuid}`;
+  if (fs.existsSync(projectDir) === false) {
+    fs.mkdir(projectDir);
+  }
+  return projectDir;
 }
 
 function getCssFile(dataDir, project) {
-    let projectDir = getProjectDir(dataDir, project);
+  const projectDir = getProjectDir(dataDir, project);
 
-    let cssDir = projectDir + '/css';
-    if (false === fs.existsSync(cssDir)) {
-        fs.mkdir(cssDir);
-    }
+  const cssDir = `${projectDir}/css`;
+  if (fs.existsSync(cssDir) === false) {
+    fs.mkdir(cssDir);
+  }
 
-    return cssDir + '/project.css';
+  return `${cssDir}/project.css`;
 }
 
 function getVariableFile(dataDir, project) {
-    let projectDir = getProjectDir(dataDir, project);
+  const projectDir = getProjectDir(dataDir, project);
 
-    let scssDir = projectDir + '/scss';
-    if (false === fs.existsSync(scssDir)) {
-        fs.mkdir(scssDir);
-    }
+  const scssDir = `${projectDir}/scss`;
+  if (fs.existsSync(scssDir) === false) {
+    fs.mkdir(scssDir);
+  }
 
-    return scssDir + '/_variables.scss';
+  return `${scssDir}/_variables.scss`;
 }
 
 function getProjectFile(dataDir, project) {
-    let projectDir = getProjectDir(dataDir, project);
+  const projectDir = getProjectDir(dataDir, project);
 
-    let scssDir = projectDir + '/scss';
-    if (false === fs.existsSync(scssDir)) {
-        fs.mkdir(scssDir);
-    }
+  const scssDir = `${projectDir}/scss`;
+  if (fs.existsSync(scssDir) === false) {
+    fs.mkdir(scssDir);
+  }
 
-    return scssDir + '/project.scss';
+  return `${scssDir}/project.scss`;
 }
 
 exports.getCss = (dataDir, project) => {
-    let cssFile = getCssFile(dataDir, project);
-    if (fs.existsSync(cssFile)) {
-        return '/css/data' + cssFile.replace(dataDir, '');
-    }
-    return false;
+  const cssFile = getCssFile(dataDir, project);
+  if (fs.existsSync(cssFile)) {
+    return `/css/data${cssFile.replace(dataDir, '')}`;
+  }
+  return false;
 };
 
 exports.render = (dataDir, publicDataDir, project) => {
-    let projectFile  = getProjectFile(dataDir, project);
-    let variableFile = getVariableFile(dataDir, project);
-    let outputFile   = getCssFile(publicDataDir, project);
+  const projectFile = getProjectFile(dataDir, project);
+  const variableFile = getVariableFile(dataDir, project);
+  const outputFile = getCssFile(publicDataDir, project);
 
-    if(false === fs.existsSync(projectFile)) {
-        fs.createReadStream(dataDir + '/base/project.scss').pipe(fs.createWriteStream(projectFile));
-    }
+  if (fs.existsSync(projectFile) === false) {
+    fs.createReadStream(`${dataDir}/base/project.scss`).pipe(fs.createWriteStream(projectFile));
+  }
 
-    return new Promise((resolve, reject) => {
-        fs.writeFile(variableFile, project.content, () => {
-            sass.render({
-                file: projectFile,
-                outFile: outputFile,
+  return new Promise((resolve, reject) => {
+    fs.writeFile(variableFile, project.content, () => {
+      sass.render({
+        file: projectFile,
+        outFile: outputFile,
 
-                sourceMap: true
-            }, (err, result) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
+        sourceMap: true,
+      }, (err, result) => {
+        if (err) {
+          reject(err);
+          return;
+        }
 
                 // No errors during the compilation, write this result on the disk
-                fs.writeFile(outputFile, result.css, () => {
-                    resolve('saved');
-                });
-
-            });
+        fs.writeFile(outputFile, result.css, () => {
+          resolve('saved');
         });
+      });
     });
+  });
 };

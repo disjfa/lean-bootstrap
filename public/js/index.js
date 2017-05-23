@@ -46600,7 +46600,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _btn = require('./btn.vue');
@@ -46610,7 +46610,7 @@ var _btn2 = _interopRequireDefault(_btn);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    Btn: _btn2.default
+  Btn: _btn2.default
 };
 
 },{"./btn.vue":211}],213:[function(require,module,exports){
@@ -46654,7 +46654,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _container = require('./container.vue');
@@ -46664,14 +46664,14 @@ var _container2 = _interopRequireDefault(_container);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    Container: _container2.default
+  Container: _container2.default
 };
 
 },{"./container.vue":213}],215:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _index = require('./btn/index');
@@ -46689,19 +46689,19 @@ var _index6 = _interopRequireDefault(_index5);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function bootstrap() {
-    var entries = {};
+  var entries = {};
 
-    for (var _len = arguments.length, components = Array(_len), _key = 0; _key < _len; _key++) {
-        components[_key] = arguments[_key];
-    }
+  for (var _len = arguments.length, components = Array(_len), _key = 0; _key < _len; _key++) {
+    components[_key] = arguments[_key];
+  }
 
-    components.forEach(function (component) {
-        Object.keys(component).forEach(function (key) {
-            entries[key] = component[key];
-        });
+  components.forEach(function (component) {
+    Object.keys(component).forEach(function (key) {
+      entries[key] = component[key];
     });
+  });
 
-    return entries;
+  return entries;
 }
 
 exports.default = bootstrap(_index2.default, _index4.default, _index6.default);
@@ -46710,7 +46710,7 @@ exports.default = bootstrap(_index2.default, _index4.default, _index6.default);
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _navbar = require('./navbar.vue');
@@ -46728,9 +46728,9 @@ var _navItem2 = _interopRequireDefault(_navItem);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    Navbar: _navbar2.default,
-    NavbarNav: _navbarNav2.default,
-    NavItem: _navItem2.default
+  Navbar: _navbar2.default,
+  NavbarNav: _navbarNav2.default,
+  NavItem: _navItem2.default
 };
 
 },{"./navItem.vue":217,"./navbar.vue":218,"./navbarNav.vue":219}],217:[function(require,module,exports){
@@ -46878,13 +46878,13 @@ var _index2 = _interopRequireDefault(_index);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function plugin(Vue) {
-    Object.keys(_index2.default).forEach(function (key) {
-        Vue.component(key, _index2.default[key]);
-    });
+  Object.keys(_index2.default).forEach(function (key) {
+    Vue.component(key, _index2.default[key]);
+  });
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(plugin);
+  window.Vue.use(plugin);
 }
 
 module.exports = plugin;
@@ -46939,9 +46939,10 @@ var _plugin2 = _interopRequireDefault(_plugin);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var jQuery = require('jquery');
-window.$ = window.jQuery = jQuery;
-
 var Tether = require('tether');
+
+window.jQuery = jQuery;
+window.$ = jQuery;
 window.Tether = Tether;
 
 require('bootstrap/dist/js/bootstrap.js');
@@ -46980,8 +46981,7 @@ var routes = [{
 }];
 
 var router = new _vueRouter2.default({
-  routes: routes // short for routes: routes
-});
+  routes: routes });
 
 _vue2.default.use(_vueRouter2.default);
 _vue2.default.use(_vueHighlightjs2.default);
@@ -47104,8 +47104,8 @@ exports.default = {
     context.commit('isFetching');
     _axios2.default.get('/projects/my').then(function (response) {
       context.commit('load', response.data);
-    }).catch(function (res) {
-      console.log(res);
+    }).catch(function () {
+      context.commit('notallowed');
     });
   },
   loadProject: function loadProject(context, payload) {
@@ -47122,8 +47122,8 @@ exports.default = {
       data: payload
     }).then(function (response) {
       context.commit('loadProject', response.data);
-    }).catch(function (res) {
-      console.log(res);
+    }).catch(function () {
+      // console.log(res);
     });
   },
   saveProjectSettings: function saveProjectSettings(context, payload) {
@@ -47135,10 +47135,10 @@ exports.default = {
         name: payload.name,
         settings: payload.settings
       }
-    }).then(function (response) {
+    }).then(function () {
       context.commit('fetchingIsDone');
-    }).catch(function (res) {
-      console.log(res);
+    }).catch(function () {
+      // console.log(res);
     });
   },
   saveProjectData: function saveProjectData(context, payload) {
@@ -47149,10 +47149,10 @@ exports.default = {
       data: {
         data: payload.formData
       }
-    }).then(function (response) {
+    }).then(function () {
       context.commit('fetchingIsDone');
-    }).catch(function (res) {
-      console.log(res);
+    }).catch(function () {
+      // console.log(res);
     });
   }
 };
@@ -47161,28 +47161,31 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = {
-    getProjects: function getProjects(state) {
-        return state.projects;
-    },
-    getProject: function getProject(state) {
-        if (state.project) {
-            return state.project;
-        }
-        return false;
-    },
-    isFetching: function isFetching(state) {
-        return state.isFetching;
+  getProjects: function getProjects(state) {
+    return state.projects;
+  },
+  getProject: function getProject(state) {
+    if (state.project) {
+      return state.project;
     }
+    return false;
+  },
+  isFetching: function isFetching(state) {
+    return state.isFetching;
+  },
+  getError: function getError(state) {
+    return state.error;
+  }
 };
 
 },{}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _mutations = require('./mutations');
@@ -47200,40 +47203,49 @@ var _actions2 = _interopRequireDefault(_actions);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var projects = {
-    namespaced: true,
-    state: {
-        projects: [],
-        project: false,
-        isFetching: false
-    },
-    mutations: _mutations2.default,
-    getters: _getters2.default,
-    actions: _actions2.default
+  namespaced: true,
+  state: {
+    projects: [],
+    project: false,
+    isFetching: false,
+    error: false
+  },
+  mutations: _mutations2.default,
+  getters: _getters2.default,
+  actions: _actions2.default
 };
 
 exports.default = projects;
 
 },{"./actions":224,"./getters":225,"./mutations":227}],227:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = {
-    load: function load(state, payload) {
-        state.projects = payload;
-        state.isFetching = false;
-    },
-    loadProject: function loadProject(state, payload) {
-        state.project = payload;
-        state.isFetching = false;
-    },
-    isFetching: function isFetching(state) {
-        state.isFetching = true;
-    },
-    fetchingIsDone: function fetchingIsDone(state) {
-        state.isFetching = false;
-    }
+  load: function load(state, payload) {
+    state.projects = payload;
+    state.isFetching = false;
+    state.error = null;
+  },
+  loadProject: function loadProject(state, payload) {
+    state.project = payload;
+    state.isFetching = false;
+    state.error = null;
+  },
+  isFetching: function isFetching(state) {
+    state.isFetching = true;
+  },
+  fetchingIsDone: function fetchingIsDone(state) {
+    state.isFetching = false;
+    state.error = null;
+  },
+  notallowed: function notallowed(state) {
+    state.projects = {};
+    state.isFetching = false;
+    state.error = 'Not allowed, you can login.';
+  }
 };
 
 },{}],228:[function(require,module,exports){
@@ -47241,31 +47253,32 @@ exports.default = {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _vuex = require('vuex');
 
 exports.default = {
-    name: 'app',
-    computed: (0, _vuex.mapGetters)({
-        projects: 'projects/getProjects'
-    }),
-    mounted: function mounted() {
-        this.$store.dispatch('projects/loadMyProjects');
-    },
+  name: 'app',
+  computed: (0, _vuex.mapGetters)({
+    projects: 'projects/getProjects',
+    error: 'projects/getError'
+  }),
+  mounted: function mounted() {
+    this.$store.dispatch('projects/loadMyProjects');
+  },
 
-    events: {
-        test: function test(message) {
-            this.message = message;
-        }
+  events: {
+    test: function test(message) {
+      this.message = message;
     }
+  }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"py-3"},[_c('div',{staticClass:"btn-group float-right py-2"},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":{name: 'project-create'}}},[_vm._v("\n            Create new project\n        ")])],1),_vm._v(" "),_c('h1',[_vm._v("Projects")]),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',{staticClass:"list-group"},_vm._l((_vm.projects),function(project){return (project.uuid)?_c('router-link',{staticClass:"list-group-item",attrs:{"to":{name: 'project-details', params: { id: project.uuid }}}},[_vm._v("\n            "+_vm._s(project.name)+"\n        ")]):_vm._e()}))])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('container',{staticClass:"py-3"},[_c('div',{staticClass:"btn-group float-right py-2"},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":{name: 'project-create'}}},[_vm._v("\n            Create new project\n        ")])],1),_vm._v(" "),_c('h1',[_vm._v("Projects")]),_vm._v(" "),_c('br'),_vm._v(" "),(_vm.error)?_c('div',[_c('div',{staticClass:"alert alert-warning"},[_c('i',{staticClass:"fa fa-exclamation-triangle"}),_vm._v("\n            "+_vm._s(_vm.error)+"\n        ")])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"list-group"},_vm._l((_vm.projects),function(project){return (project.uuid)?_c('router-link',{staticClass:"list-group-item",attrs:{"to":{name: 'project-details', params: { id: project.uuid }}}},[_vm._v("\n            "+_vm._s(project.name)+"\n        ")]):_vm._e()}))])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -47274,7 +47287,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-63b78cac", __vue__options__)
   } else {
-    hotAPI.reload("data-v-63b78cac", __vue__options__)
+    hotAPI.rerender("data-v-63b78cac", __vue__options__)
   }
 })()}
 
@@ -47629,7 +47642,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-20607cde", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20607cde", __vue__options__)
+    hotAPI.rerender("data-v-20607cde", __vue__options__)
   }
 })()}
 
@@ -47637,7 +47650,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _axios = require('axios');
@@ -47647,37 +47660,37 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    load: function load(context) {
-        context.commit('isFetching');
-        _axios2.default.get('/user').then(function (response) {
-            context.commit('load', response.data);
-        });
-    }
+  load: function load(context) {
+    context.commit('isFetching');
+    _axios2.default.get('/user').then(function (response) {
+      context.commit('load', response.data);
+    });
+  }
 };
 
 },{"axios":1}],233:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = {
-    getUser: function getUser(state) {
-        if (state.user) {
-            return state.user;
-        }
-        return false;
-    },
-    isFetching: function isFetching(state) {
-        return state.isFetching;
+  getUser: function getUser(state) {
+    if (state.user) {
+      return state.user;
     }
+    return false;
+  },
+  isFetching: function isFetching(state) {
+    return state.isFetching;
+  }
 };
 
 },{}],234:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _mutations = require('./mutations');
@@ -47695,14 +47708,14 @@ var _actions2 = _interopRequireDefault(_actions);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var user = {
-    namespaced: true,
-    state: {
-        user: {},
-        isFetching: false
-    },
-    mutations: _mutations2.default,
-    getters: _getters2.default,
-    actions: _actions2.default
+  namespaced: true,
+  state: {
+    user: {},
+    isFetching: false
+  },
+  mutations: _mutations2.default,
+  getters: _getters2.default,
+  actions: _actions2.default
 };
 
 exports.default = user;
@@ -47711,16 +47724,16 @@ exports.default = user;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = {
-    load: function load(state, payload) {
-        state.user = payload.user || {};
-        state.isFetching = false;
-    },
-    isFetching: function isFetching(state) {
-        state.isFetching = true;
-    }
+  load: function load(state, payload) {
+    state.user = payload.user || {};
+    state.isFetching = false;
+  },
+  isFetching: function isFetching(state) {
+    state.isFetching = true;
+  }
 };
 
 },{}],236:[function(require,module,exports){

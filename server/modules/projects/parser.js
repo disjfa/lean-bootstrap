@@ -1,52 +1,50 @@
-let fs = require('fs')
+const fs = require('fs');
 
-function escapeHtml (text) {
-  let map = {
+function escapeHtml(text) {
+  const map = {
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    '\'': '&#039;'
-  }
+    '\'': '&#039;',
+  };
 
-  return text.replace(/[&<>"']/g, function (m) {
-    return map[m]
-  })
+  return text.replace(/[&<>"']/g, m => map[m]);
 }
 
 exports.parseFile = (project) => {
-  let bootstrapVariables = require.resolve('bootstrap/scss/_variables.scss')
+  const bootstrapVariables = require.resolve('bootstrap/scss/_variables.scss');
 
   return new Promise((resolve) => {
     fs.readFile(bootstrapVariables, (err, data) => {
       if (err) {
-        throw err
+        throw err;
       }
 
-      let bsdata = data.toString()
+      const bsdata = data.toString();
 
-      let sassVariables = bsdata.match(/^\$[^]+?\;/gm)
-      let myData = []
+      const sassVariables = bsdata.match(/^\$[^]+?\;/gm);
+      const myData = [];
 
       if (project && project.content) {
-        let myVariables = project.content.match(/^\$[^]+?\;/gm)
+        const myVariables = project.content.match(/^\$[^]+?\;/gm);
         for (let variable of myVariables) {
-          variable = variable.replace(';', '')
-          let varDetails = variable.split(':')
+          variable = variable.replace(';', '');
+          const varDetails = variable.split(':');
           if (varDetails.length === 2) {
             myData.push({
               name: varDetails[0].trim(),
               value: varDetails[1].trim(),
-            })
+            });
           }
         }
       }
 
-      let varData = []
+      const varData = [];
       for (let variable of sassVariables) {
-        variable = variable.replace('!default;', '')
-        let varDetails = variable.split(':')
-        let item = {}
+        variable = variable.replace('!default;', '');
+        const varDetails = variable.split(':');
+        let item = {};
 
         if (varDetails.length === 2) {
           item = {
@@ -54,38 +52,38 @@ exports.parseFile = (project) => {
             value: varDetails[1].trim(),
             original: varDetails[1].trim(),
             altered: false,
-          }
+          };
 
-          const foundItem = myData.find(my => my.name === item.name)
+          const foundItem = myData.find(my => my.name === item.name);
           if (foundItem && foundItem.value !== item.value) {
             item = Object.assign(item, {
               value: foundItem.value,
               altered: true,
-            })
+            });
           }
-          varData.push(item)
+          varData.push(item);
         }
       }
 
-      resolve(varData)
-    })
-  })
-}
+      resolve(varData);
+    });
+  });
+};
 
-function sortObject (o) {
-  return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {})
+function sortObject(o) {
+  return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {});
 }
 
 exports.groupData = (varData) => {
-  let groups = {}
+  const groups = {};
   for (item of varData) {
-    let itemGroupName = item.name.split('-')
-    let groupName = itemGroupName[0].replace(/\$/, '')
+    const itemGroupName = item.name.split('-');
+    const groupName = itemGroupName[0].replace(/\$/, '');
     if (!groups[groupName]) {
-      groups[groupName] = []
+      groups[groupName] = [];
     }
-    groups[groupName].push(item)
+    groups[groupName].push(item);
   }
 
-  return sortObject(groups)
-}
+  return sortObject(groups);
+};

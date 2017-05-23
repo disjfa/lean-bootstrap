@@ -7,6 +7,12 @@
         </div>
         <h1>Projects</h1>
         <br>
+        <div v-if="error">
+            <div class="alert alert-warning">
+                <i class="fa fa-exclamation-triangle"></i>
+                {{error}}
+            </div>
+        </div>
         <div class="list-group">
             <router-link :to="{name: 'project-details', params: { id: project.uuid }}" class="list-group-item" v-for="project in projects" v-if="project.uuid">
                 {{project.name}}
@@ -16,19 +22,20 @@
 </template>
 
 <script type="text/babel">
-    import {mapGetters} from 'vuex';
-    export default {
-        name: 'app',
-        computed: mapGetters({
-            projects: 'projects/getProjects',
-        }),
-        mounted() {
-            this.$store.dispatch('projects/loadMyProjects');
-        },
-        events: {
-            test(message) {
-                this.message = message
-            }
-        }
+  import { mapGetters } from 'vuex';
+  export default {
+    name: 'app',
+    computed: mapGetters({
+      projects: 'projects/getProjects',
+      error: 'projects/getError',
+    }),
+    mounted() {
+      this.$store.dispatch('projects/loadMyProjects');
+    },
+    events: {
+      test(message) {
+        this.message = message
+      }
     }
+  }
 </script>
