@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 export default {
+  clearError: (context) => {
+    context.commit('clearError');
+  },
   load: (context) => {
     context.commit('isFetching');
     axios.get('/projects')
@@ -53,7 +56,7 @@ export default {
         context.commit('fetchingIsDone');
       })
       .catch(() => {
-        // console.log(res);
+        // console.log(error.response);
       });
   },
   saveProjectData(context, payload) {
@@ -68,8 +71,8 @@ export default {
       .then(() => {
         context.commit('fetchingIsDone');
       })
-      .catch(() => {
-        // console.log(res);
+      .catch((error) => {
+        context.commit('error', error.response.data.message);
       });
   },
 };

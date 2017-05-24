@@ -51,12 +51,17 @@
             </div>
             <div class="project-settings-data">
                 <hr>
+                <div class="form-group" v-if="!project.canEdit">
+                    <div class="alert alert-info">
+                        This is not your project, you can view but not save these.
+                    </div>
+                </div>
                 <div v-if="activeTab('settings')">
                     <div class="form-group">
                         <label for="project-name">Project name</label>
                         <input type="text" v-model="project.project.name" class="form-control" id="project-name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" v-if="project.canEdit">
                         <button class="btn btn-primary" @click="saveProjectSettings()">
                             <i class="fa fa-floppy-o"></i>
                             save
@@ -73,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" v-if="project.canEdit">
                         <button class="btn btn-primary" @click="saveGroupData()">
                             <i class="fa fa-floppy-o"></i>
                             save
@@ -82,7 +87,7 @@
                     <div v-for="item in varData">
                         <item-input :item="item"></item-input>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" v-if="project.canEdit">
                         <button class="btn btn-primary" @click="saveGroupData()">
                             <i class="fa fa-floppy-o"></i>
                             save
@@ -98,6 +103,7 @@
   import { mapGetters } from 'vuex';
   import Vue from 'vue';
   import ItemInput from './../components/ItemInput.vue';
+  import toastr from 'toastr';
 
   export default {
     name: 'app',
@@ -156,13 +162,16 @@
         varData.map(item => {
           source.push(item.name + ': ' + item.value + ';' + (item.altered ? ' // altered' : ''))
         });
-        return(source.join('\n'));
+        return (source.join('\n'));
       },
       isFetching() {
         return this.$store.getters['projects/isFetching'];
       },
       project() {
         return this.$store.getters['projects/getProject'];
+      },
+      error() {
+        return this.$store.getters['projects/getError'];
       },
       deviceName() {
         if (this.device) {
@@ -231,8 +240,10 @@
         });
       },
       saveProjectSettings() {
-        const { project, } = this.project;
-        this.$store.dispatch('projects/saveProjectSettings', { id: project.uuid, name: project.name, settings: project.settings });
+        const { project, canEdit, } = this.project;
+        if (canEdit) {
+          this.$store.dispatch('projects/saveProjectSettings', { id: project.uuid, name: project.name, settings: project.settings });
+        }
       },
       saveGroupData() {
         const { varData, project, } = this.project;
@@ -248,6 +259,12 @@
       }
     },
     watch: {
+      error: function (value) {
+        if (value) {
+          toastr.error(value);
+          this.$store.dispatch('projects/clearError');
+        }
+      },
       search: function (value) {
         this.search = value.replace(/[^a-z0-9\-\#\$\.\/\*\+\,\(\)\s]/i, '').toLowerCase();
 

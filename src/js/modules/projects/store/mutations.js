@@ -16,6 +16,13 @@ export default {
     state.isFetching = false;
     state.error = null;
   },
+  clearError: (state) => {
+    state.error = false;
+  },
+  error: (state, payload) => {
+    state.isFetching = false;
+    state.error = payload;
+  },
   notallowed: (state) => {
     state.projects = {};
     state.isFetching = false;

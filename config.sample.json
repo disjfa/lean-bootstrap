@@ -2,7 +2,8 @@
   "auth": {
     "github": {
       "clientID": null,
-      "clientSecret": null
+      "clientSecret": null,
+      "callbackURL": null
     }
   }
 }

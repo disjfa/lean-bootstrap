@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueHighlightJS from 'vue-highlightjs';
 import VueRouter from 'vue-router';
+import toastr from 'toastr';
 import App from './views/app.vue';
 import Projects from './modules/projects/views/Projects.vue';
 import MyProjects from './modules/projects/views/MyProjects.vue';
@@ -18,6 +19,9 @@ window.$ = jQuery;
 window.Tether = Tether;
 
 require('bootstrap/dist/js/bootstrap.js');
+
+toastr.options.closeButton = true;
+toastr.options.positionClass = 'toast-bottom-full-width';
 
 const routes = [{
   path: '/home',

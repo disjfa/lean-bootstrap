@@ -47,13 +47,20 @@ router.post('/', (req, res) => {
 router.get('/:uuid', (req, res) => {
   const projects = req.database.getCollection('projects')
   const project = projects.findOne({ uuid: req.params.uuid })
+  const { user } = req;
+  const userId = user ? user.uuid : null;
 
   if (!project) {
     res.status(404).send()
   }
+  let canEdit = true;
+  if (project.userId && userId !== project.userId) {
+    canEdit = false;
+  }
 
   parseData.parseFile(project).then((varData) => {
     res.send({
+      canEdit,
       project,
       varData,
     })
@@ -157,7 +164,7 @@ router.post('/:uuid', (req, res) => {
       .catch((error) => {
         project.content = content
         res.status(400).send({
-          message: 'failed',
+          message: 'Error, could not build from these variables. Try resetting some or reload page.',
           error,
         })
       })

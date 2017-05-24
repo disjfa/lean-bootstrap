@@ -39,6 +39,7 @@
     "passport": "^0.3.2",
     "passport-github2": "^0.1.10",
     "tether": "^1.4.0",
+    "toastr": "^2.1.2",
     "uuid": "^3.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
