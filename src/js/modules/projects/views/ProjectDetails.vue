@@ -29,7 +29,7 @@
                 </div>
                 <div class="iframe" v-else>
                     <div class="iframe-container" :style="iframeStyles">
-                        <iframe :src="'/projects/' + project.project.uuid + '/home'" frameborder="0" :style="iframeStyles"></iframe>
+                        <iframe :src="getIframeUrl()" frameborder="0" :style="iframeStyles" @load="iframeLoaded"></iframe>
                     </div>
                 </div>
             </div>
@@ -114,6 +114,7 @@
       return {
         id: this.$route.params.id,
         search: this.$route.params.filter || '',
+        route: this.$route.params.route || 'home',
         tab: 'variables',
         device: false,
         deviceRotation: false,
@@ -200,6 +201,23 @@
       this.$store.dispatch('projects/loadProject', this.$route.params.id);
     },
     methods: {
+      getIframeUrl() {
+        const { project, } = this.project;
+        const { route, } = this;
+        return '/projects/' + project.uuid + '/' + route;
+      },
+      iframeLoaded(evt) {
+        const routeName = evt.target.contentWindow.location.href.split('/').pop();
+        const route = {
+          name: 'project-details',
+          params: {
+            route: routeName,
+            filter: this.search || null,
+            id: this.id,
+          },
+        };
+        this.$router.push(route);
+      },
       toggleCode() {
         this.showCode = !this.showCode;
       },
@@ -267,10 +285,10 @@
       },
       search: function (value) {
         this.search = value.replace(/[^a-z0-9\-\#\$\.\/\*\+\,\(\)\s]/i, '').toLowerCase();
-
         const route = {
           name: 'project-details',
           params: {
+            route: this.route,
             id: this.id,
           },
         };

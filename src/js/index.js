@@ -47,7 +47,7 @@ const routes = [{
   label: 'Create a new project',
   name: 'project-create',
 }, {
-  path: '/projects/:id/:filter?',
+  path: '/projects/:id/:route?/:filter?',
   component: ProjectDetails,
   label: 'Project details',
   name: 'project-details',
