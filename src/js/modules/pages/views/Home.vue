@@ -1,13 +1,14 @@
 <template>
     <container class="py-3">
         <div class="jumbotron bg-primary text-white">
-            <h1>Hi, why are we here.</h1>
+            <h1>Bootstrap playground</h1>
             <p>
-                In the wild you sometimes hear bootstrap is hard to overrule as css, all of the nested builds of css code.
+                Customize Bootstrap's components, sass variables, and try and build your own most awesome build. And maybe share it to build the most awesome build you can create.
+                Choose which variables you use into your custom build of Bootstrap. Not sure which files to use? Just go and play around with all the variables you can use.
             </p>
-            <p>
-                The short awnser is, don't override. Use bootsstrap. So we made a playground where you don't:
-            </p>
+            <h3>Why</h3>
+            <p> In the wild you sometimes hear bootstrap is hard to overrule as css, all of the nested builds of css code.</p>
+            <p> The short awnser is, don't override. Use bootsstrap. So we made a playground where you don't:</p>
             <pre v-highlightjs="sourceFrom"><code class="css"></code></pre>
             <p>to:</p>
             <pre v-highlightjs="sourceTo"><code class="css"></code></pre>

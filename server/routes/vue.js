@@ -3,7 +3,7 @@ const router = require('express').Router();
 router.get('/', (req, res) => {
   res.render('vue/index', {
     layout: 'vue',
-    title: 'Index',
+    title: 'Bootstrap playground',
   });
 });
 
