@@ -60,7 +60,7 @@
                 <div v-if="activeTab('settings')">
                     <div class="form-group">
                         <label for="project-name">Project name</label>
-                        <input type="text" v-model="project.project.name" class="form-control" id="project-name">
+                        <input type="text" v-model="project.project.name" class="form-control" id="project-name" :disabled="!project.canEdit">
                     </div>
                     <div class="form-group" v-if="project.canEdit">
                         <button class="btn btn-primary" @click="saveProjectSettings()">
@@ -86,7 +86,7 @@
                         </button>
                     </div>
                     <div v-for="item in varData">
-                        <item-input :item="item"></item-input>
+                        <item-input :item="item" :disabled="!project.canEdit"></item-input>
                     </div>
                     <div class="form-group" v-if="project.canEdit">
                         <button class="btn btn-primary" @click="saveGroupData()">

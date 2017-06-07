@@ -36,10 +36,18 @@ router.post('/', (req, res) => {
     })
 
     parseData.parseFile(project).then((varData) => {
-      res.send({
-        project,
-        varData,
-      })
+      let content = []
+      for (varItem of varData) {
+        content.push(`${varItem.name}: ${varItem.value}`)
+      }
+      project.content = `${content.join(';\n')};`
+      projectData.render(req.dataDir, req.publicDir, project)
+        .then(() => {
+          res.send({
+            project,
+            varData,
+          })
+        })
     })
   }
 })
@@ -47,15 +55,15 @@ router.post('/', (req, res) => {
 router.get('/:uuid', (req, res) => {
   const projects = req.database.getCollection('projects')
   const project = projects.findOne({ uuid: req.params.uuid })
-  const { user } = req;
-  const userId = user ? user.uuid : null;
+  const { user } = req
+  const userId = user ? user.uuid : null
 
   if (!project) {
     res.status(404).send()
   }
-  let canEdit = true;
+  let canEdit = true
   if (project.userId && userId !== project.userId) {
-    canEdit = false;
+    canEdit = false
   }
 
   parseData.parseFile(project).then((varData) => {
@@ -96,8 +104,8 @@ router.get('/:uuid/:page', (req, res) => {
 router.post('/:uuid/settings', (req, res) => {
   const projects = req.database.getCollection('projects')
   const project = projects.findOne({ uuid: req.params.uuid })
-  const { user } = req;
-  const userId = user ? user.uuid : null;
+  const { user } = req
+  const userId = user ? user.uuid : null
 
   if (!project) {
     res.status(404).send()
@@ -132,7 +140,7 @@ router.post('/:uuid', (req, res) => {
   const projects = req.database.getCollection('projects')
   const project = projects.findOne({ uuid: req.params.uuid })
   const { user } = req
-  const userId = user ? user.uuid : null;
+  const userId = user ? user.uuid : null
 
   if (!project) {
     return res.status(404).send()

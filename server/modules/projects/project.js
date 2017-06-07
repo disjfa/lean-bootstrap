@@ -75,7 +75,6 @@ exports.render = (dataDir, publicDataDir, project) => {
           return;
         }
 
-                // No errors during the compilation, write this result on the disk
         fs.writeFile(outputFile, result.css, () => {
           resolve('saved');
         });
