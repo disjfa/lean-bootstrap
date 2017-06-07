@@ -7,29 +7,28 @@
         </div>
         <h1>Projects</h1>
         <br>
-        <div class="list-group">
-            <router-link :to="{name: 'project-details', params: { id: project.uuid }}" class="list-group-item" v-for="project in projects" v-if="project.uuid">
-                <i class="fa fa-fw" :class="{'fa-user': project.userId, 'fa-user-o': !project.userId}"></i>
-                {{project.name}}
-            </router-link>
-        </div>
+        <project-list :projects="projects"></project-list>
     </container>
 </template>
 
 <script type="text/babel">
-    import {mapGetters} from 'vuex';
-    export default {
-        name: 'app',
-        computed: mapGetters({
-            projects: 'projects/getProjects',
-        }),
-        mounted() {
-            this.$store.dispatch('projects/load');
-        },
-        events: {
-            test(message) {
-                this.message = message
-            }
-        }
+  import { mapGetters } from 'vuex';
+  import ProjectList from './../components/ProjectList.vue';
+  export default {
+    name: 'app',
+    components: {
+      ProjectList,
+    },
+    computed: mapGetters({
+      projects: 'projects/getProjects',
+    }),
+    mounted() {
+      this.$store.dispatch('projects/load');
+    },
+    events: {
+      test(message) {
+        this.message = message
+      }
     }
+  }
 </script>

@@ -13,18 +13,18 @@
                 {{error}}
             </div>
         </div>
-        <div class="list-group">
-            <router-link :to="{name: 'project-details', params: { id: project.uuid }}" class="list-group-item" v-for="project in projects" v-if="project.uuid">
-                {{project.name}}
-            </router-link>
-        </div>
+        <project-list :projects="projects"></project-list>
     </container>
 </template>
 
 <script type="text/babel">
   import { mapGetters } from 'vuex';
+  import ProjectList from './../components/ProjectList.vue';
   export default {
     name: 'app',
+    components: {
+      ProjectList,
+    },
     computed: mapGetters({
       projects: 'projects/getProjects',
       error: 'projects/getError',
