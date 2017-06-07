@@ -8583,7 +8583,8 @@ button.toast-close-button {
   bottom: 0;
   padding: 1rem;
   overflow: auto;
-  background: rgba(0, 0, 0, 0.8); }
+  background: rgba(0, 0, 0, 0.8);
+  color: #f7f7f9; }
   .projects .projects-settings .project-settings-data {
     display: none; }
   .projects .projects-settings .projects-settings-close {
@@ -8608,7 +8609,8 @@ button.toast-close-button {
       display: block;
       position: relative;
       width: 300px;
-      height: calc(100vh - 56px); }
+      height: calc(100vh - 56px);
+      color: inherit; }
       .projects .projects-settings .project-settings-data {
         display: block; }
       .projects .projects-settings .projects-settings-close {

@@ -25,6 +25,7 @@
             </h1>
             <div>
                 <div v-if="showCode">
+                    <div class="clearfix"></div>
                     <pre v-highlightjs="sourceCode"><code class="scss"></code></pre>
                 </div>
                 <div class="iframe" v-else>
@@ -40,7 +41,7 @@
             </a>
             <div class="btn-group">
                 <a href="#" @click.prevent="setTab('variables')" class="btn btn-outline-info disabled">
-                    <i class="fa fa-fw" :class="{'fa-check' : !isFetching, 'fa-spinner fa-spin': isFetching}"></i>
+                    <i class="fa fa-fw" :class="{'fa-lock': !project.canEdit, 'fa-check' : !isFetching && project.canEdit, 'fa-spinner fa-spin': isFetching}"></i>
                 </a>
                 <a class="btn btn-outline-info" href="#" @click.prevent="setTab('variables')" :class="{'active' : activeTab('variables')}">
                     Variables
