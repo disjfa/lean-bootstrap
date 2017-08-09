@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueHighlightJS from 'vue-highlightjs';
 import VueRouter from 'vue-router';
+import VueAnalytics from 'vue-analytics'
 import toastr from 'toastr';
 import App from './views/app.vue';
 import Projects from './modules/projects/views/Projects.vue';
@@ -63,6 +64,10 @@ const router = new VueRouter({
 Vue.use(VueRouter);
 Vue.use(VueHighlightJS);
 Vue.use(myComponents);
+Vue.use(VueAnalytics, {
+  id: 'UA-104314578-1',
+  router
+});
 
 new Vue({
   router,
