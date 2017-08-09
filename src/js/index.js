@@ -61,13 +61,13 @@ const router = new VueRouter({
   routes, // short for routes: routes
 });
 
-Vue.use(VueRouter);
-Vue.use(VueHighlightJS);
-Vue.use(myComponents);
 Vue.use(VueAnalytics, {
   id: 'UA-104314578-1',
   router
 });
+Vue.use(VueRouter);
+Vue.use(VueHighlightJS);
+Vue.use(myComponents);
 
 new Vue({
   router,

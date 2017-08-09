@@ -47441,13 +47441,13 @@ var routes = [{
 var router = new _vueRouter2.default({
   routes: routes });
 
-_vue2.default.use(_vueRouter2.default);
-_vue2.default.use(_vueHighlightjs2.default);
-_vue2.default.use(_plugin2.default);
 _vue2.default.use(_vueAnalytics2.default, {
   id: 'UA-104314578-1',
   router: router
 });
+_vue2.default.use(_vueRouter2.default);
+_vue2.default.use(_vueHighlightjs2.default);
+_vue2.default.use(_plugin2.default);
 
 new _vue2.default({
   router: router,
