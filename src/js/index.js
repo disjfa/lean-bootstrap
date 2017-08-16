@@ -13,11 +13,11 @@ import store from './store';
 import myComponents from './components/plugin';
 
 const jQuery = require('jquery');
-const Tether = require('tether');
+const Popper = require('popper.js');
 
 window.jQuery = jQuery;
 window.$ = jQuery;
-window.Tether = Tether;
+window.Popper = Popper;
 
 require('bootstrap/dist/js/bootstrap.js');
 

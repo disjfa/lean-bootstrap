@@ -17,7 +17,7 @@ let sourcemaps = require('gulp-sourcemaps')
 let vueify = require('vueify')
 let favicons = require('gulp-favicons')
 
-gulp.task('default', ['copy', 'browser-sync', 'watchify'], function () {
+gulp.task('default', ['copy', 'styles', 'browser-sync', 'watchify'], function () {
   gulp.watch('src/scss/**/*.scss', ['styles'])
 })
 

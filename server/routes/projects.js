@@ -37,8 +37,52 @@ router.post('/', (req, res) => {
 
     parseData.parseFile(project).then((varData) => {
       let content = []
+
       for (varItem of varData) {
         content.push(`${varItem.name}: ${varItem.value}`)
+        switch (varItem.name) {
+          case '$black':
+            content.push(`$grays: (
+  100: $gray-100,
+  200: $gray-200,
+  300: $gray-300,
+  400: $gray-400,
+  500: $gray-500,
+  600: $gray-600,
+  700: $gray-700,
+  800: $gray-800,
+  900: $gray-900
+)`)
+            break
+          case '$cyan':
+            content.push(`$colors: (
+  blue: $blue,
+  indigo: $indigo,
+  purple: $purple,
+  pink: $pink,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  teal: $teal,
+  cyan: $cyan,
+  white: $white,
+  gray: $gray-600,
+  gray-dark: $gray-800
+)`)
+            content.push(`$theme-colors: (
+  primary: $blue,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800
+)`)
+            break
+        }
+
       }
       project.content = `${content.join(';\n')};`
       projectData.render(req.dataDir, req.publicDir, project)
@@ -156,6 +200,48 @@ router.post('/:uuid', (req, res) => {
       const posted = req.body.data[varItem.name]
       if (posted) {
         changed.push(`${varItem.name}: ${posted}`)
+        switch (varItem.name) {
+          case '$black':
+            changed.push(`$grays: (
+  100: $gray-100,
+  200: $gray-200,
+  300: $gray-300,
+  400: $gray-400,
+  500: $gray-500,
+  600: $gray-600,
+  700: $gray-700,
+  800: $gray-800,
+  900: $gray-900
+)`)
+            break
+          case '$cyan':
+            changed.push(`$colors: (
+  blue: $blue,
+  indigo: $indigo,
+  purple: $purple,
+  pink: $pink,
+  red: $red,
+  orange: $orange,
+  yellow: $yellow,
+  green: $green,
+  teal: $teal,
+  cyan: $cyan,
+  white: $white,
+  gray: $gray-600,
+  gray-dark: $gray-800
+)`)
+            changed.push(`$theme-colors: (
+  primary: $blue,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800
+)`)
+            break
+        }
       }
     }
 

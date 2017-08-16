@@ -1,17 +1,17 @@
 <template>
-    <nav class="navbar navbar-toggleable-md" :class="classes">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbar-main" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" :class="classes">
+        <slot></slot>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main" aria-controls="navbar-main" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <slot></slot>
         <navbarNav :items="items" :user="user">
 
         </navbarNav>
     </nav>
 </template>
 <script>
-  import container from '../container/container.vue';
-  import navbarNav from './navbarNav.vue';
+  import container from '../container/container.vue'
+  import navbarNav from './navbarNav.vue'
 
   export default {
     components: {
@@ -24,7 +24,7 @@
       user: Object,
     },
     computed: {
-      classes() {
+      classes () {
         return {
           'navbar-inverse': this.inverse,
           'bg-inverse': this.inverse,
