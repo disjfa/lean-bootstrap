@@ -1,7 +1,62 @@
+import { polyfill } from 'es6-promise';
+
+polyfill();
+if (!Array.prototype.find) {
+  Array.prototype.find = function (predicate) {
+    if (this == null) {
+      throw new TypeError('Array.prototype.find called on null or undefined');
+    }
+    if (typeof predicate !== 'function') {
+      throw new TypeError('predicate must be a function');
+    }
+    const list = Object(this);
+    const length = list.length >>> 0;
+    const thisArg = arguments[1];
+    let value;
+
+    for (let i = 0; i < length; i++) {
+      value = list[i];
+      if (predicate.call(thisArg, value, i, list)) {
+        return value;
+      }
+    }
+    return undefined;
+  };
+}
+if (!Array.prototype.forEach) {
+  Array.prototype.forEach = function (callback/* , thisArg */) {
+    let T,
+      k;
+
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+    const O = Object(this);
+    const len = O.length >>> 0;
+    if (typeof callback !== 'function') {
+      throw new TypeError(`${callback} is not a function`);
+    }
+    if (arguments.length > 1) {
+      T = arguments[1];
+    }
+    k = 0;
+
+    while (k < len) {
+      var kValue;
+
+      if (k in O) {
+        kValue = O[k];
+        callback.call(T, kValue, k, O);
+      }
+      k++;
+    }
+  };
+}
+
 import Vue from 'vue';
 import VueHighlightJS from 'vue-highlightjs';
 import VueRouter from 'vue-router';
-import VueAnalytics from 'vue-analytics'
+import VueAnalytics from 'vue-analytics';
 import toastr from 'toastr';
 import App from './views/app.vue';
 import Projects from './modules/projects/views/Projects.vue';
@@ -63,7 +118,7 @@ const router = new VueRouter({
 
 Vue.use(VueAnalytics, {
   id: 'UA-104314578-1',
-  router
+  router,
 });
 Vue.use(VueRouter);
 Vue.use(VueHighlightJS);

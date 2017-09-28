@@ -1,6 +1,6 @@
 <template>
     <div v-if="project" class="projects">
-        <div class="bg-inverse text-white projects-data">
+        <div class="bg-dark text-white projects-data">
             <div class="btn-group py-2 float-right">
                 <a href="#" @click.prevent="reloadFrames();" class="btn btn-outline-info" title="Reload frame">
                     <i class="fa fa-fw fa-recycle"></i>
@@ -11,7 +11,8 @@
                 <a href="#" @click.prevent="rotate();" class="btn btn-outline-info" title="Reload frame">
                     <i class="fa fa-fw fa-tablet" :class="{'fa-rotate-90': deviceRotation}"></i>
                 </a>
-                <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{deviceName}}
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -30,24 +31,32 @@
                 </div>
                 <div class="iframe" v-else>
                     <div class="iframe-container" :style="iframeStyles">
-                        <iframe :src="getIframeUrl()" frameborder="0" :style="iframeStyles" @load="iframeLoaded"></iframe>
+                        <iframe frameborder="0" :style="iframeStyles" @load="iframeLoaded" ref="iframe-frame"></iframe>
                     </div>
                 </div>
             </div>
         </div>
         <div class="projects-settings bg-faded" :class="{'opened': opened}">
-            <a href="#" class="btn btn-outline-secondary pull-right projects-settings-close" aria-label="Close" @click.prevent="closeSettings()">
+            <a href="#" class="btn btn-outline-secondary pull-right projects-settings-close" aria-label="Close"
+               @click.prevent="closeSettings()">
                 <i class="fa fa-times"></i>
             </a>
             <div class="btn-group">
                 <a href="#" @click.prevent="setTab('variables')" class="btn btn-outline-info disabled">
-                    <i class="fa fa-fw" :class="{'fa-lock': !project.canEdit, 'fa-check' : !isFetching && project.canEdit, 'fa-spinner fa-spin': isFetching}"></i>
+                    <i class="fa fa-fw"
+                       :class="{'fa-lock': !project.canEdit, 'fa-check' : !isFetching && project.canEdit, 'fa-spinner fa-spin': isFetching}"></i>
                 </a>
-                <a class="btn btn-outline-info" href="#" @click.prevent="setTab('variables')" :class="{'active' : activeTab('variables')}">
+                <a class="btn btn-outline-info" href="#" @click.prevent="setTab('variables')"
+                   :class="{'active' : activeTab('variables')}">
                     Variables
                 </a>
-                <a class="btn btn-outline-info btn-block" href="#" @click.prevent="setTab('settings')" :class="{'active' : activeTab('settings')}">
+                <a class="btn btn-outline-info" href="#" @click.prevent="setTab('settings')"
+                   :class="{'active' : activeTab('settings')}">
                     Settings
+                </a>
+                <a class="btn btn-outline-info" href="#" @click.prevent="setTab('share')"
+                   :class="{'active' : activeTab('share')}" title="Share">
+                    <i class="fa fa-fw fa-share-alt"></i>
                 </a>
             </div>
             <div class="project-settings-data">
@@ -57,10 +66,26 @@
                         This is not your project, you can view but not save these.
                     </div>
                 </div>
+                <div v-if="activeTab('share')">
+                    <div class="form-group">
+                        <label for="project-name">Share project</label>
+                        <input type="text" :value="fullIframeUrl" class="form-control" id="project-name"
+                               :disabled="!project.canEdit">
+                    </div>
+                    <div class="form-group">
+                        <a :href="'https://www.facebook.com/sharer/sharer.php?u=' + fullIframeUrl" title="Share on facebook" class="btn btn-primary">
+                            <i class="fa fa-fw fa-facebook"></i>
+                        </a>
+                        <a :href="'https://twitter.com/home?status=' + fullIframeUrl" title="Share on twitter" class="btn btn-primary">
+                            <i class="fa fa-fw fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
                 <div v-if="activeTab('settings')">
                     <div class="form-group">
                         <label for="project-name">Project name</label>
-                        <input type="text" v-model="project.project.name" class="form-control" id="project-name" :disabled="!project.canEdit">
+                        <input type="text" v-model="project.project.name" class="form-control" id="project-name"
+                               :disabled="!project.canEdit">
                     </div>
                     <div class="form-group" v-if="project.canEdit">
                         <button class="btn btn-primary" @click="saveProjectSettings()">
@@ -73,7 +98,8 @@
                     <div class="form-group">
                         <label for="filter">Filter</label>
                         <div class="input-group">
-                            <input type="search" v-model="search" class="form-control" placeholder="Filter..." id="filter">
+                            <input type="search" v-model="search" class="form-control" placeholder="Filter..."
+                                   id="filter">
                             <div class="input-group-addon">
                                 <i class="fa fa-search"></i>
                             </div>
@@ -101,7 +127,7 @@
 </template>
 
 <script type="text/babel">
-  import { mapGetters } from 'vuex';
+  import {mapGetters} from 'vuex';
   import Vue from 'vue';
   import ItemInput from './../components/ItemInput.vue';
   import toastr from 'toastr';
@@ -153,13 +179,21 @@
       }
     },
     computed: {
+      fullIframeUrl() {
+        return document.location.origin + this.iframeUrl;
+      },
+      iframeUrl() {
+        const {project,} = this.project;
+        const {route,} = this;
+        return '/projects/' + project.uuid + '/' + route;
+      },
       varData() {
         return this.project.varData.filter(item => {
           return item.name.indexOf(this.search) > -1 || item.value.indexOf(this.search) > -1;
         });
       },
       sourceCode() {
-        const { varData } = this.project;
+        const {varData} = this.project;
         const source = [];
         varData.map(item => {
           source.push(item.name + ': ' + item.value + ';' + (item.altered ? ' // altered' : ''))
@@ -201,14 +235,17 @@
     mounted() {
       this.$store.dispatch('projects/loadProject', this.$route.params.id);
     },
+    updated() {
+      if (!this.$refs['iframe-frame'].src) {
+        this.$refs['iframe-frame'].src = this.iframeUrl;
+      }
+    },
     methods: {
-      getIframeUrl() {
-        const { project, } = this.project;
-        const { route, } = this;
-        return '/projects/' + project.uuid + '/' + route;
-      },
       iframeLoaded(evt) {
         const routeName = evt.target.contentWindow.location.href.split('/').pop();
+        if (routeName.indexOf(':')) {
+          return false;
+        }
         const route = {
           name: 'project-details',
           params: {
@@ -243,7 +280,7 @@
         this.saveProjectSettings();
       },
       setProjectSetting(setting, value) {
-        const { project, } = this.project;
+        const {project,} = this.project;
         if (!project.settings) {
           project.settings = {};
         }
@@ -254,18 +291,24 @@
           return;
         }
         const iframes = this.$el.querySelectorAll('iframe');
-        iframes.forEach(iframe => {
-          iframe.contentWindow.location.reload();
-        });
+        for (let i in iframes) {
+          if (iframes[i].contentWindow) {
+            iframes[i].contentWindow.location.reload();
+          }
+        }
       },
       saveProjectSettings() {
-        const { project, canEdit, } = this.project;
+        const {project, canEdit,} = this.project;
         if (canEdit) {
-          this.$store.dispatch('projects/saveProjectSettings', { id: project.uuid, name: project.name, settings: project.settings });
+          this.$store.dispatch('projects/saveProjectSettings', {
+            id: project.uuid,
+            name: project.name,
+            settings: project.settings
+          });
         }
       },
       saveGroupData() {
-        const { varData, project, } = this.project;
+        const {varData, project,} = this.project;
         let formData = {};
         for (let i in varData) {
           if (!varData.hasOwnProperty(i)) {
@@ -274,7 +317,7 @@
 
           formData[varData[i].name] = varData[i].value;
         }
-        this.$store.dispatch('projects/saveProjectData', { id: project.uuid, formData });
+        this.$store.dispatch('projects/saveProjectData', {id: project.uuid, formData});
       }
     },
     watch: {
@@ -307,7 +350,7 @@
         if (false === project.hasOwnProperty('project') || false === project.project.hasOwnProperty('settings')) {
           return;
         }
-        const { settings } = project.project;
+        const {settings} = project.project;
         for (let key in settings) {
           if (!settings.hasOwnProperty(key)) {
             continue;

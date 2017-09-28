@@ -1,31 +1,29 @@
-const router = require('express').Router()
-const sass = require('node-sass')
-const fs = require('fs')
-const path = require('path')
-const parseData = require('../modules/projects/parser')
-const projectData = require('../modules/projects/project')
-const uuid = require('uuid/v4')
+const router = require('express').Router();
+const fs = require('fs');
+const parseData = require('../modules/projects/parser');
+const projectData = require('../modules/projects/project');
+const uuid = require('uuid/v4');
 
 router.get('/', (req, res) => {
-  const projects = req.database.getCollection('projects')
-  res.send(projects.data)
-})
+  const projects = req.database.getCollection('projects');
+  res.send(projects.data);
+});
 
 router.get('/my', (req, res) => {
   if (!req.user) {
-    return res.status(403).send({ data: {}, statusText: 'not allowed', code: 403 })
+    return res.status(403).send({ data: {}, statusText: 'not allowed', code: 403 });
   }
-  const projects = req.database.getCollection('projects')
-  const myProjects = projects.find({ userId: req.user.uuid })
-  res.send(myProjects)
-})
+  const projects = req.database.getCollection('projects');
+  const myProjects = projects.find({ userId: req.user.uuid });
+  res.send(myProjects);
+});
 
 router.post('/', (req, res) => {
-  const projects = req.database.getCollection('projects')
+  const projects = req.database.getCollection('projects');
 
-  let userId = null
+  let userId = null;
   if (req.user) {
-    userId = req.user.uuid
+    userId = req.user.uuid;
   }
 
   if (req.body.name) {
@@ -33,13 +31,13 @@ router.post('/', (req, res) => {
       uuid: uuid(),
       name: req.body.name,
       userId,
-    })
+    });
 
     parseData.parseFile(project).then((varData) => {
-      let content = []
+      const content = [];
 
       for (varItem of varData) {
-        content.push(`${varItem.name}: ${varItem.value}`)
+        content.push(`${varItem.name}: ${varItem.value}`);
         switch (varItem.name) {
           case '$black':
             content.push(`$grays: (
@@ -52,8 +50,8 @@ router.post('/', (req, res) => {
   700: $gray-700,
   800: $gray-800,
   900: $gray-900
-)`)
-            break
+)`);
+            break;
           case '$cyan':
             content.push(`$colors: (
   blue: $blue,
@@ -69,7 +67,7 @@ router.post('/', (req, res) => {
   white: $white,
   gray: $gray-600,
   gray-dark: $gray-800
-)`)
+)`);
             content.push(`$theme-colors: (
   primary: $blue,
   secondary: $gray-600,
@@ -79,35 +77,35 @@ router.post('/', (req, res) => {
   danger: $red,
   light: $gray-100,
   dark: $gray-800
-)`)
-            break
+)`);
+            break;
         }
-
       }
-      project.content = `${content.join(';\n')};`
+      project.content = `${content.join(';\n')};`;
       projectData.render(req.dataDir, req.publicDir, project)
         .then(() => {
           res.send({
             project,
             varData,
-          })
-        })
-    })
+          });
+        });
+    });
   }
-})
+});
 
 router.get('/:uuid', (req, res) => {
-  const projects = req.database.getCollection('projects')
-  const project = projects.findOne({ uuid: req.params.uuid })
-  const { user } = req
-  const userId = user ? user.uuid : null
+  const projects = req.database.getCollection('projects');
+  const project = projects.findOne({ uuid: req.params.uuid });
+  const { user } = req;
+  const userId = user ? user.uuid : null;
 
   if (!project) {
-    res.status(404).send()
+    res.status(404).send();
   }
-  let canEdit = true
+
+  let canEdit = true;
   if (project.userId && userId !== project.userId) {
-    canEdit = false
+    canEdit = false;
   }
 
   parseData.parseFile(project).then((varData) => {
@@ -115,91 +113,94 @@ router.get('/:uuid', (req, res) => {
       canEdit,
       project,
       varData,
-    })
-  })
-})
+    });
+  });
+});
 
 router.get('/:uuid/:page', (req, res) => {
-  const projects = req.database.getCollection('projects')
-  const project = projects.findOne({ uuid: req.params.uuid })
+  const projects = req.database.getCollection('projects');
+  const project = projects.findOne({ uuid: req.params.uuid });
   if (!project) {
-    return req.next()
+    return req.next();
   }
 
-  const pagename = req.params.page.toLowerCase().replace(/[^a-z0-9]/g, '')
-  let pageslug = 'projects/pages/home'
+  const pagename = req.params.page.toLowerCase().replace(/[^a-z0-9]/g, '');
+  let pageslug = 'projects/pages/home';
   try {
-    const page = fs.lstatSync(`${req.viewsDir}/projects/pages/${pagename}.hbs`)
+    const page = fs.lstatSync(`${req.viewsDir}/projects/pages/${pagename}.hbs`);
     if (page.isFile()) {
-      pageslug = `projects/pages/${pagename}`
+      pageslug = `projects/pages/${pagename}`;
     }
   } catch (err) {
-    return req.next()
+    return req.next();
   }
 
   res.render(pageslug, {
     layout: 'project',
-    title: 'Projects',
+    title: 'Bootstrap playground',
+    url: req.protocol + '://' + req.hostname + req.originalUrl,
+    editUrl: '/#' + req.originalUrl,
+    image: req.protocol + '://' + req.hostname + '/icons/favicon-230x230.png',
     project,
     cssFile: projectData.getCss(req.publicDir, project),
-  })
-})
+  });
+});
 
 router.post('/:uuid/settings', (req, res) => {
-  const projects = req.database.getCollection('projects')
-  const project = projects.findOne({ uuid: req.params.uuid })
-  const { user } = req
-  const userId = user ? user.uuid : null
+  const projects = req.database.getCollection('projects');
+  const project = projects.findOne({ uuid: req.params.uuid });
+  const { user } = req;
+  const userId = user ? user.uuid : null;
 
   if (!project) {
-    res.status(404).send()
+    res.status(404).send();
   }
 
   if (project.userId && userId !== project.userId) {
-    return res.status(403).send()
+    return res.status(403).send();
   }
 
   if (req.body.name) {
-    project.name = req.body.name
+    project.name = req.body.name;
   }
 
   if (req.body.settings instanceof Object) {
-    const settings = {}
+    const settings = {};
     for (const key in req.body.settings) {
       if (!req.body.settings.hasOwnProperty(key)) {
-        continue
+        continue;
       }
-      settings[key] = req.body.settings[key]
+      settings[key] = req.body.settings[key];
     }
-    project.settings = settings
+    project.settings = settings;
   }
-  projects.update(project)
+  projects.update(project);
   res.send({
     message: 'success',
     project,
-  })
-})
+  });
+});
 
 router.post('/:uuid', (req, res) => {
-  const projects = req.database.getCollection('projects')
-  const project = projects.findOne({ uuid: req.params.uuid })
-  const { user } = req
-  const userId = user ? user.uuid : null
+  const projects = req.database.getCollection('projects');
+  const project = projects.findOne({ uuid: req.params.uuid });
+  const { user } = req;
+  const userId = user ? user.uuid : null;
 
   if (!project) {
-    return res.status(404).send()
+    return res.status(404).send();
   }
 
   if (project.userId && userId !== project.userId) {
-    return res.status(403).send()
+    return res.status(403).send();
   }
 
   parseData.parseFile().then((varData) => {
-    const changed = []
+    const changed = [];
     for (varItem of varData) {
-      const posted = req.body.data[varItem.name]
+      const posted = req.body.data[varItem.name];
       if (posted) {
-        changed.push(`${varItem.name}: ${posted}`)
+        changed.push(`${varItem.name}: ${posted}`);
         switch (varItem.name) {
           case '$black':
             changed.push(`$grays: (
@@ -212,8 +213,8 @@ router.post('/:uuid', (req, res) => {
   700: $gray-700,
   800: $gray-800,
   900: $gray-900
-)`)
-            break
+)`);
+            break;
           case '$cyan':
             changed.push(`$colors: (
   blue: $blue,
@@ -229,7 +230,7 @@ router.post('/:uuid', (req, res) => {
   white: $white,
   gray: $gray-600,
   gray-dark: $gray-800
-)`)
+)`);
             changed.push(`$theme-colors: (
   primary: $blue,
   secondary: $gray-600,
@@ -239,30 +240,30 @@ router.post('/:uuid', (req, res) => {
   danger: $red,
   light: $gray-100,
   dark: $gray-800
-)`)
-            break
+)`);
+            break;
         }
       }
     }
 
-    const content = project.content
-    project.content = `${changed.join(';\n')};`
+    const content = project.content;
+    project.content = `${changed.join(';\n')};`;
     projectData.render(req.dataDir, req.publicDir, project)
       .then(() => {
-        projects.update(project)
+        projects.update(project);
         res.send({
           message: 'success',
           project,
-        })
+        });
       })
       .catch((error) => {
-        project.content = content
+        project.content = content;
         res.status(400).send({
           message: 'Error, could not build from these variables. Try resetting some or reload page.',
           error,
-        })
-      })
-  })
-})
+        });
+      });
+  });
+});
 
-module.exports = router
+module.exports = router;

@@ -1,18 +1,51 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/Article">
 <head>
     <meta charset="UTF-8">
-    <title>{{title}}</title>
+    <title>{{project.name}}</title>
+    <meta name="description" content="{{project.name}} made with {{title}}" />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="{{project.name}}">
+    <meta itemprop="description" content="{{project.name}} made with {{title}}">
+    <meta itemprop="image" content="{{ image }}">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="{{project.name}}">
+    <meta name="twitter:description" content="{{project.name}} made with {{title}}">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image:src" content="{{ image }}">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{{project.name}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ url }}" />
+    <meta property="og:image" content="{{ image }}" />
+    <meta property="og:description" content="{{project.name}} made with {{title}}" />
+    <meta property="og:site_name" content="{{title}}" />
 
     <link rel="stylesheet" href="{{cssFile}}">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="/js/site.js"></script>
 </head>
-
 <body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="display: none" id="link-nav">
+    <div class="container">
+        <a href="/" class="navbar-brand">
+            <img src="/icons/apple-touch-icon.png" alt="" class="d-inline-block rounded" style="height: 32px">
+            {{title}}
+        </a>
+        <a href="{{ editUrl }}" class="btn btn-outline-light">
+            Edit in {{title}}
+        </a>
+    </div>
+</nav>
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">{{project.name}}</a>
