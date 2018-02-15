@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
   900: $gray-900
 )`);
             break;
-          case '$cyan':
+          case '$dark':
             content.push(`$colors: (
   blue: $blue,
   indigo: $indigo,
@@ -69,14 +69,21 @@ router.post('/', (req, res) => {
   gray-dark: $gray-800
 )`);
             content.push(`$theme-colors: (
-  primary: $blue,
-  secondary: $gray-600,
-  success: $green,
-  info: $cyan,
-  warning: $yellow,
-  danger: $red,
-  light: $gray-100,
-  dark: $gray-800
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark
+)`);
+            content.push(`$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
 )`);
             break;
         }
@@ -215,7 +222,7 @@ router.post('/:uuid', (req, res) => {
   900: $gray-900
 )`);
             break;
-          case '$cyan':
+          case '$dark':
             changed.push(`$colors: (
   blue: $blue,
   indigo: $indigo,
@@ -232,14 +239,21 @@ router.post('/:uuid', (req, res) => {
   gray-dark: $gray-800
 )`);
             changed.push(`$theme-colors: (
-  primary: $blue,
-  secondary: $gray-600,
-  success: $green,
-  info: $cyan,
-  warning: $yellow,
-  danger: $red,
-  light: $gray-100,
-  dark: $gray-800
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark
+)`);
+            changed.push(`$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
 )`);
             break;
         }

@@ -100,8 +100,10 @@
                         <div class="input-group">
                             <input type="search" v-model="search" class="form-control" placeholder="Filter..."
                                    id="filter">
-                            <div class="input-group-addon">
-                                <i class="fa fa-search"></i>
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-search"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -127,7 +129,6 @@
 </template>
 
 <script type="text/babel">
-  import {mapGetters} from 'vuex';
   import Vue from 'vue';
   import ItemInput from './../components/ItemInput.vue';
   import toastr from 'toastr';
@@ -183,8 +184,8 @@
         return document.location.origin + this.iframeUrl;
       },
       iframeUrl() {
-        const {project,} = this.project;
-        const {route,} = this;
+        const { project, } = this.project;
+        const { route, } = this;
         return '/projects/' + project.uuid + '/' + route;
       },
       varData() {
@@ -193,10 +194,10 @@
         });
       },
       sourceCode() {
-        const {varData} = this.project;
+        const { varData } = this.project;
         const source = [];
         varData.map(item => {
-          source.push(item.name + ': ' + item.value + ';' + (item.altered ? ' // altered' : ''))
+          source.push(item.name + ': ' + item.value + ';' + (item.altered ? ' // altered' : ''));
         });
         return (source.join('\n'));
       },
@@ -221,16 +222,16 @@
             return {
               width: this.device.height,
               height: this.device.width,
-            }
+            };
           }
 
           return {
             width: this.device.width,
             height: this.device.height,
-          }
+          };
         }
         return {};
-      }
+      },
     },
     mounted() {
       this.$store.dispatch('projects/loadProject', this.$route.params.id);
@@ -243,7 +244,7 @@
     methods: {
       iframeLoaded(evt) {
         const routeName = evt.target.contentWindow.location.href.split('/').pop();
-        if (routeName.indexOf(':')) {
+        if (routeName.indexOf(':') > -1) {
           return false;
         }
         const route = {
@@ -254,6 +255,7 @@
             id: this.id,
           },
         };
+
         this.$router.push(route);
       },
       toggleCode() {
@@ -280,7 +282,7 @@
         this.saveProjectSettings();
       },
       setProjectSetting(setting, value) {
-        const {project,} = this.project;
+        const { project, } = this.project;
         if (!project.settings) {
           project.settings = {};
         }
@@ -298,7 +300,7 @@
         }
       },
       saveProjectSettings() {
-        const {project, canEdit,} = this.project;
+        const { project, canEdit, } = this.project;
         if (canEdit) {
           this.$store.dispatch('projects/saveProjectSettings', {
             id: project.uuid,
@@ -308,7 +310,7 @@
         }
       },
       saveGroupData() {
-        const {varData, project,} = this.project;
+        const { varData, project, } = this.project;
         let formData = {};
         for (let i in varData) {
           if (!varData.hasOwnProperty(i)) {
@@ -317,7 +319,7 @@
 
           formData[varData[i].name] = varData[i].value;
         }
-        this.$store.dispatch('projects/saveProjectData', {id: project.uuid, formData});
+        this.$store.dispatch('projects/saveProjectData', { id: project.uuid, formData });
       }
     },
     watch: {
@@ -350,7 +352,7 @@
         if (false === project.hasOwnProperty('project') || false === project.project.hasOwnProperty('settings')) {
           return;
         }
-        const {settings} = project.project;
+        const { settings } = project.project;
         for (let key in settings) {
           if (!settings.hasOwnProperty(key)) {
             continue;

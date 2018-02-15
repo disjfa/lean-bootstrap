@@ -46,7 +46,7 @@ exports.parseFile = (project) => {
         const varDetails = variable.split(':');
         let item = {};
 
-        if (varDetails.length === 2) {
+        if (varDetails.length === 2 && varDetails[1].trim() !== '()') {
           item = {
             name: varDetails[0].trim(),
             value: varDetails[1].trim(),

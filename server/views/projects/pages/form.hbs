@@ -68,77 +68,130 @@
         <div class="col-lg-4 py-1">
             <h4>Custom forms</h4>
             <div class="form-group">
-                <label for="customCheckBox">Custom checkbox</label>
-                <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheckBox">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Check this custom checkbox</span>
-                </label>
+                <label for="customCheck1">Custom checkbox</label>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                </div>
             </div>
             <div class="form-group">
                 <label>Custom radio</label>
-                <div class="custom-controls-stacked">
-                    <label class="custom-control custom-radio">
-                        <input id="radio1" name="radio" type="radio" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Toggle this custom radio</span>
-                    </label>
-                    <label class="custom-control custom-radio">
-                        <input id="radio2" name="radio" type="radio" class="custom-control-input">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Or toggle this other custom radio</span>
-                    </label>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
                 </div>
             </div>
             <h4>Input group</h4>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">@</span>
-                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
             </div>
-            <br>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2">@example.com</span>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2">@example.com</span>
+                </div>
             </div>
-            <br>
+
             <label for="basic-url">Your vanity URL</label>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">https://example.com/users/</span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+                </div>
                 <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
             </div>
-            <br>
-            <div class="input-group">
-                <span class="input-group-addon">$</span>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                <span class="input-group-addon">.00</span>
+                <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                </div>
             </div>
-            <br>
+
             <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <span class="input-group-addon">0.00</span>
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">With textarea</span>
+                </div>
+                <textarea class="form-control" aria-label="With textarea"></textarea>
             </div>
         </div>
         <div class="col-lg-4 py-1">
             <h4>Validation</h4>
-            <div class="form-group has-success">
-                <label class="form-control-label" for="inputSuccess1">Input with success</label>
-                <input type="text" class="form-control form-control-success" id="inputSuccess1">
-                <div class="form-control-feedback">Success! You've done it.</div>
-                <small class="form-text text-muted">Example help text that remains unchanged.</small>
-            </div>
-            <div class="form-group has-warning">
-                <label class="form-control-label" for="inputWarning1">Input with warning</label>
-                <input type="text" class="form-control form-control-warning" id="inputWarning1">
-                <div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
-                <small class="form-text text-muted">Example help text that remains unchanged.</small>
-            </div>
-            <div class="form-group has-danger">
-                <label class="form-control-label" for="inputDanger1">Input with danger</label>
-                <input type="text" class="form-control form-control-danger" id="inputDanger1">
-                <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
-                <small class="form-text text-muted">Example help text that remains unchanged.</small>
-            </div>
+            <form>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationServer01">First name</label>
+                        <input type="text" class="form-control is-valid" id="validationServer01" placeholder="First name" value="Mark" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationServer02">Last name</label>
+                        <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="Otto" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationServerUsername">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                            </div>
+                            <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="validationServer03">City</label>
+                        <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationServer04">State</label>
+                        <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="State" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid state.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="validationServer05">Zip</label>
+                        <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid zip.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                        <label class="form-check-label" for="invalidCheck3">
+                            Agree to terms and conditions
+                        </label>
+                        <div class="invalid-feedback">
+                            You must agree before submitting.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit form</button>
+            </form>
         </div>
     </div>
 </section>

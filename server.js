@@ -36,8 +36,8 @@ if (false !== fs.existsSync('./config.json')) {
 } else {
   config = {}
 }
-app.set('auth', config.auth || {})
-app.set('database', database)
+app.set('auth', config.auth || {});
+app.set('database', database);
 
 //view engine & main template
 app.engine('.hbs', expressHbs({
@@ -45,38 +45,39 @@ app.engine('.hbs', expressHbs({
   extname: '.hbs',
   layoutsDir: 'server/views/layouts/',
   partialsDir: 'server/views/partials/',
-}))
-app.set('view engine', '.hbs')
+}));
+app.set('view engine', '.hbs');
 
-const auth = app.get('auth')
-const { github } = auth
+const auth = app.get('auth');
+const { github } = auth;
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
 if (github && github.clientID && github.clientSecret) {
-  let GitHubStrategy = require('passport-github2');
+  let GitHubStrategy = require('passport-github');
   passport.use(new GitHubStrategy({
       clientID: github.clientID,
       clientSecret: github.clientSecret,
       callbackURL: github.callbackURL,
     },
     function (accessToken, refreshToken, profile, done) {
+      console.log(profile);
       let users = database.getCollection('users')
       let user = users.findOne({ githubId: profile.id }) || users.insert({
-          uuid: uuid(),
-          githubId: profile.id,
-          displayName: profile.displayName,
-          username: profile.username,
-        })
-      return done(null, user)
-    }
-  ))
+        uuid: uuid(),
+        githubId: profile.id,
+        displayName: profile.displayName,
+        username: profile.username,
+      });
+      return done(null, user);
+    },
+  ));
 }
 
 //middleware
